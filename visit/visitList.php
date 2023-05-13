@@ -56,7 +56,7 @@ $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
                     <thead>
                         <tr>
                             <th>visitID</th>
-                            <th>bedID</th>
+                            <th>bed</th>
                             <th>doctorName</th>
                             <th>Patient Name</th>
                             <th>patient Type</th>
@@ -78,16 +78,19 @@ $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
                                             foreach($query as $items){
                                                 $patient = $items['patientId'];
                                                 $doctor = $items['doctorId'];
+                                                $bedId = $items['bedId'];
                                                 $query1 = $db->findPatient($patient);
                                                 $patientName = mysqli_fetch_assoc($query1);
                                                 $query2 = $db->findDoctor($doctor);
                                                 $doctorName = mysqli_fetch_assoc($query2);
-                                               
+                                                $query3 = $db->findBed($bedId);
+                                                $bedName = mysqli_fetch_assoc($query3);
+
                                                 
                                                  ?>
                                                 <tr>
                                                     <td><?= $items['visitId'] ?></td>
-                                                    <td><?php if($items['bedId'] == 1){echo "no bed";}else{ echo $items['bedId'];} ?></td>
+                                                    <td><?= $bedName['bedType'] ?></td>
                                                     <td><?=  $doctorName['doctorName'] ?></td>
                                                     <td><?=  $patientName['patientName']?></td>
                                                     <td><?=  strtoupper($items['patientType'])?></td>

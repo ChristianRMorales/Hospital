@@ -2,7 +2,7 @@
 <html>
   <head>
 
-    <title>Update Doctor | Patient Palooza</title>
+    <title>Add Doctor | Patient Palooza</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css?v=2" />
   <link rel="icon" href="1.ico" type="image/x-icon">
   </head>
@@ -10,16 +10,16 @@
     <div class="main">
         <div class="navbar">
             <div class="icon">
-                <h2 class="logo">Doctor Palooza</h2>
+                <h2 class="logo">Bed Palooza</h2>
             </div>
 
             <div class="menu">
                 <ul>
                   <li><a href="../Index.html">HOME</a></li>
-                  <li><a href="doctorList.php">SEARCH DOCTOR</a></li>
-                  <li><a href="deleteDoctor.html">DELETE</a></li>
+                  <li><a href="bedList.php">SEARCH DOCTOR</a></li>
+                  <li><a href="deleteBed.html">DELETE</a></li>
                   <li class="active">ADD</li>
-                  <li><a href="updateDoctor.html">UPDATE</a></li>
+                  <li><a href="updateBed.html">UPDATE</a></li>
                 </ul>
             </div>
 
@@ -31,22 +31,22 @@
         <p class="par">Please enter the ID of the doctor you want to update and fill in the fields that you want to update:</p>
 
       <div class="formDoctorAdd">
-        <form action="doctor.php" method="post" id="addDoctor">
+        <form action="bed.php" method="post" id="addBed">
 
-          <label for="doctorName">Name:</label>
-          <input type="text" id="doctorName" name="doctorName" required>
+          <label for="bedName">Bed Name:</label>
+          <input type="text" id="bedName" name="bedName" required>
       
    
-          <label for="doctorAddress">Address:</label>
-          <input type="text" id="doctorAddress" name="doctorAddress"required>
+          <label for="ratePerDay">Rate Per Day:</label>
+          <input type="text" id="ratePerDay" name="ratePerDay" required>
    
     
-          <label for="doctorPhone">Phone number:</label>
-          <input type="text" id="doctorPhone" name="doctorPhone"required>
+          <label for="bedType">Bed Type:</label>
+          <input type="text" id="bedType" name="bedType" required>
     
           <input type="hidden" name="input" value="1">
         </form>
-        <button class="btnn" form="addDoctor" value="submit">ADD DOCTOR</button>
+        <button class="btnn" form="addBed" value="submit">ADD BED</button>
       </div>
 
     </div>
