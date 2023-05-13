@@ -53,5 +53,6 @@ if(isset($_POST["input"]) && $_POST["input"] == "1"){
     else
         echo 'wrong Delete';
 }
-
+header("location: doctorList.php");
+exit();    
 ?>
