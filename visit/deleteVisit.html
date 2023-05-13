@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Register | Patient Palooza</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css?v=2" />
+    <link rel="icon" href="1.ico" type="image/x-icon">
+  </head>
+  <body>
+    <div class="main">
+        <div class="navbar">
+            <div class="icon">
+                <h2 class="logo">Patient Palooza</h2>
+            </div>
+
+            <div class="menu">
+                <ul>
+                  <li><a href="../Index.html">HOME</a></li>
+                  <li><a href="visitList.php">SEARCH VISITS</a></li>
+                  <li class="active">DELETE</li>
+                  <li><a href="addVisit.html">ADD</a></li>
+                  <li><a href="updateVisit.html">UPDATE</a></li>
+
+                </ul>
+            </div>
+
+           
+        </div> 
+    <div class="content">
+
+        <h1><span>Textbook Rentals</span> <br>Create Your Own Account!</h1>
+        <p class="par">Create Your Own Account <br>So that you can enter the world of Read-iculous, where you'll find a vast collection of enthralling stories
+            <br> a quae totam ipsa illum minus laudantium?</p>
+
+      <div class=" form3 ">
+      <form action="visit.php" method="post"  id="delVisit" >
+      
+          <label for="visitId">Input visit Id:</label>
+          <input type="text" id="visitId" name="visitId" required>
+    
+          <input type="hidden" name="input" value="0">
+      </form>
+      <button class="btnn" form="delVisit" value="submit">Delete Visit</button>
+    </div>
+
+    </div>
+    </div>
+  </body>
+</html>

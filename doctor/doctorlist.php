@@ -14,13 +14,13 @@ $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
     <div class="main">
         <div class="navbar">
             <div class="icon">
-                <h2 class="logo">Patient Palooza</h2>
+                <h2 class="logo">Doctor Palooza</h2>
             </div>
 
             <div class="menu">
                 <ul>
                     <li><a href="../Index.html">HOME</a></li>
-                    <li class="active">SEARCH PATIENT</li>
+                    <li class="active">SEARCH DOCTOR</li>
                     <li><a href="deleteDoctor.html">DELETE</a></li>
                     <li><a href="addDoctor.html">ADD</a></li>
                     <li><a href="updateDoctor.html">UPDATE</a></li>

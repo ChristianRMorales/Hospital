@@ -89,7 +89,7 @@ if($_POST["input"] == "1"){
             $pRegisteredDate = $row['patientDateRegistered'];
         }
     
-        $success = $db->insertPatient($name,$addr,$birthDate,$phone,$eContact,$pRegisteredDate);
+        $success = $db->updatePatient($patientId, $name,$addr,$birthDate,$phone,$eContact,$pRegisteredDate);
 
     if($success == 1)
         echo 'SUCCESS update';

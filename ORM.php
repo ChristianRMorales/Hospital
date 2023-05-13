@@ -83,6 +83,13 @@ class MyOrm {
         return $query_run;
     }
 
+    public function findVisit(string $filterValues){
+        $connection = mysqli_connect("localhost", "root", "", "hospital");
+        $sql = "SELECT * FROM visit WHERE visitId = '". $filterValues ."' ";
+        $query_run = mysqli_query($connection, $sql);
+
+        return $query_run;
+    }
 
     public function insertVisit(string $patientId, string $patientType, string $doctorId, string $bedId, string $dateOfVisitt, string $dateOfDischarge,  string $symptoms, string $disease, string $treatment ){
         
@@ -101,9 +108,18 @@ class MyOrm {
 
         return 1;
     }
-
-
     
+    
+    public function updateVisit(string $visitId, string $patientId, string $patientType, string $doctorId, string $bedId, string $dateOfVisit, string $dateOfDischarge,  string $symptoms, string $disease, string $treatment ){
+        
+        $sql = "UPDATE visit SET patientId = '". $patientId ."', patientType = '". $patientType ."', doctorId = '". $doctorId ."', bedId = '". $bedId ."', dateOfVisit = '". $dateOfVisit ."', dateOfDischarge = '". $dateOfDischarge ."', symptoms = '". $symptoms ."', disease = '". $disease ."', treatment = '". $treatment ."' WHERE (patientId = '".$patientId."');'";
+        $stmt = $this->connection->query($sql);
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return 1;
+        }
+    
+
 
     public function insertDoctor(string $doctorName, string $doctorAddress,string $doctorPhone){
         
@@ -115,36 +131,15 @@ class MyOrm {
         }
 
     // update a doctor's information
-    public function updateDoctor($id, $name = null, $address = null, $phone = null)
-    {
-        $update_query = "UPDATE doctor SET ";
-        $params = array();
-        if (!is_null($name)) {
-            $update_query .= "doctorName = :name, ";
-            $params['name'] = $name;
+    
+    public function updateDoctor(string $doctorId, string $doctorName, string $doctorAddress, string $doctorPhone){
+        $sql = "UPDATE doctor SET doctorName = '". $doctorName ."', doctorAddress = '". $doctorAddress ."', doctorPhone = '". $doctorPhone ."' WHERE (doctorId = '".$doctorId."');'";
+        $stmt = $this->connection->query($sql);
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return 1;
         }
-        if (!is_null($address)) {
-            $update_query .= "doctorAddress = :address, ";
-            $params['address'] = $address;
-        }
-        if (!is_null($phone)) {
-            $update_query .= "doctorPhone = :phone, ";
-            $params['phone'] = $phone;
-        }
-        $update_query = rtrim($update_query, ', ');
-        $update_query .= " WHERE doctorId = :id";
-        $params['id'] = $id;
-        try {
-            $stmt = $this->connection->prepare($update_query);
-            $stmt->execute($params);
-            return $stmt->rowCount();
-        } catch (PDOException $e) {
-            if ($this->debug) {
-                die("Update failed: " . $e->getMessage());
-            }
-            return 0;
-        }
-    }
+
     
     // delete a doctor
     public function deleteDoctor($id)

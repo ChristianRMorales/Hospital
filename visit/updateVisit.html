@@ -16,8 +16,8 @@
                   <li><a href="../Index.html">HOME</a></li>
                   <li><a href="visitList.php">SEARCH VISITS</a></li>
                   <li><a href="deleteVisit.html">DELETE</a></li>
-                  <li class="active">ADD</a></li>
-                  <li><a href="updateVisit.html">UPDATE</a></li>
+                  <li><a href="addVisit.html">ADD</a></li>
+                  <li class="active">UPDATE</a></li>
 
                 </ul>
             </div>
@@ -31,33 +31,35 @@
             <br> a quae totam ipsa illum minus laudantium?</p>
 
       <div class=" formVisitAdd ">
-      <form action="visit.php" method="post"  id="addVisit">
+      <form action="visit.php" method="post"  id="updateVisit">
 
+          <label for="visitId">Visit ID:</label>
+          <input type="text" id="visitId" name="visitId"required>
 
           <label for="patientId">Patient ID:</label>
-          <input type="text" id="patientId" name="patientId"required>
+          <input type="text" id="patientId" name="patientId">
       
    
           <label for="patientType">Patient Type:</label>
-          <input type="text" id="patientType" name="patientType"required>
+          <input type="text" id="patientType" name="patientType">
    
           <label for="doctorId">Doctor ID:</label>
-          <input type="text" id="doctorId" name="doctorId"required>
+          <input type="text" id="doctorId" name="doctorId">
 
           
           <label for="bedId">Bed ID:</label>
-          <input type="text" id="bedId" name="bedId"required>
+          <input type="text" id="bedId" name="bedId">
     
           <label for="dateOfVisit">Date OF Visit:</label>
           <div class = "date">
             <div>
-          <input type="text" id="dateToday" name="dateOfVisitYear" placeholder = "year"required>
+          <input type="text" id="dateToday" name="dateOfVisitYear" placeholder = "year">
             </div>
             <div>
-          <input type="text" id="dateToday" name="dateOfVisitMonth" placeholder = "month"required>
+          <input type="text" id="dateToday" name="dateOfVisitMonth" placeholder = "month">
             </div> 
             <div>
-          <input type="text" id="dateToday" name="dateOfVisitDay" placeholder = "day"required>
+          <input type="text" id="dateToday" name="dateOfVisitDay" placeholder = "day">
             </div>
 
           </div>
@@ -65,13 +67,13 @@
           <label for="dateOfDischarge">Date of Discharge:</label>
           <div class = "date">
             <div>
-          <input type="text" id="dateOfDischarge" name="dateOfDischargeYear" placeholder = "year"required>
+          <input type="text" id="dateOfDischarge" name="dateOfDischargeYear" placeholder = "year">
             </div>
             <div>
-          <input type="text" id="dateOfDischarge" name="dateOfDischargeMonth" placeholder = "month"required>
+          <input type="text" id="dateOfDischarge" name="dateOfDischargeMonth" placeholder = "month">
             </div> 
             <div>
-          <input type="text" id="dateOfDischarge" name="dateOfDischargeDay" placeholder = "day"required>
+          <input type="text" id="dateOfDischarge" name="dateOfDischargeDay" placeholder = "day">
             </div>
 
           </div>
@@ -85,9 +87,9 @@
           <label for="treatment">Treatment:</label>
           <input type="text" id="treatment" name="treatment">
     
-          <input type="hidden" name="input" value="1">
+          <input type="hidden" name="input" value="2">
       </form>
-      <button class="btnn" form="addVisit" value="submit">ADD VISIT</button>
+      <button class="btnn" form="updateVisit" value="submit">UPDATE VISIT</button>
     </div>
 
     </div>

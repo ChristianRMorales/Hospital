@@ -26,7 +26,7 @@ if(isset($_POST['search']))
 
             <div class="menu">
                 <ul>
-                    <li><a href="Index.html">HOME</a></li>
+                    <li><a href="../Index.html">HOME</a></li>
                     <li><a href="patientlist.php">SEARCH PATIENT</a></li>
                     <li><a href="deletebed.html">DELETE</a></li>
                     <li><a href="addbed.html">ADD</a></li>
