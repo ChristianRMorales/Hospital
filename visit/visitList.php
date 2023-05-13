@@ -19,7 +19,10 @@ $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
             <div class="menu">
                 <ul>
                     <li><a href="../Index.html">HOME</a></li>
-                    <li class="active">VisitList</a></li>
+                    <li class="active">SEARCH VISIT</a></li>
+                    <li><a href="deleteVisit.html">DELETE</a></li>
+                    <li><a href="addVisit.html">ADD</a></li>
+                    <li><a href="updateVisit.html">UPDATE</a></li>
                 </ul>
             </div>
             
@@ -54,6 +57,7 @@ $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
                         <tr>
                             <th>visitID</th>
                             <th>bedID</th>
+                            <th>doctorName</th>
                             <th>Patient Name</th>
                             <th>patient Type</th>
                             <th>dateOfVisit</th>
@@ -73,15 +77,19 @@ $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
         
                                             foreach($query as $items){
                                                 $patient = $items['patientId'];
-                                                $query1 = $db->filterPatient($patient);
-                                                $row = mysqli_fetch_assoc($query1);
+                                                $doctor = $items['doctorId'];
+                                                $query1 = $db->findPatient($patient);
+                                                $patientName = mysqli_fetch_assoc($query1);
+                                                $query2 = $db->findDoctor($doctor);
+                                                $doctorName = mysqli_fetch_assoc($query2);
                                                
                                                 
                                                  ?>
                                                 <tr>
                                                     <td><?= $items['visitId'] ?></td>
                                                     <td><?= $items['bedId'] ?></td>
-                                                    <td><?=  $row['patientName']?></td>
+                                                    <td><?=  $doctorName['doctorName'] ?></td>
+                                                    <td><?=  $patientName['patientName']?></td>
                                                     <td><?=  $items['patientType']?></td>
                                                     <td><?=  $items['dateOfVisit']?></td>
                                                     <td><?=  $items['dateOfDischarge']?></td>

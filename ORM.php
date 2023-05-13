@@ -83,6 +83,26 @@ class MyOrm {
         return $query_run;
     }
 
+
+    public function insertVisit(string $patientId, string $patientType, string $doctorId, string $bedId, string $dateOfVisitt, string $dateOfDischarge,  string $symptoms, string $disease, string $treatment ){
+        
+        $sql = "INSERT INTO visit VALUES (0 ,'".$patientId."','".$patientType."','".$doctorId."','". $bedId ."','". $dateOfVisitt ."','" . $dateOfDischarge ."','".$symptoms."','".$disease."','".$treatment.  "');";
+        $stmt = $this->connection->query($sql);
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return 1;
+        }
+
+    
+    public function deleteVisit(string $visitId){
+        $sql = "DELETE FROM visit WHERE visitId=".$visitId.";";
+        $stmt = $this->connection->query($sql);
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return 1;
+    }
+
+
     
 
     public function insertDoctor(string $doctorName, string $doctorAddress,string $doctorPhone){
@@ -143,19 +163,13 @@ class MyOrm {
     }
     
     // find a doctor by id
-    public function findDoctor($id)
+    public function findDoctor($filterValues)
     {
-        try {
-            $stmt = $this->connection->prepare("SELECT * FROM doctor WHERE doctorId = :id");
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-            return $stmt;
-        } catch (PDOException $e) {
-            if ($this->debug) {
-                die("Query failed: " . $e->getMessage());
-            }
-            return null;
-        }
+        $connection = mysqli_connect("localhost", "root", "", "hospital");
+        $sql = "SELECT * FROM doctor WHERE doctorId = '". $filterValues ."' ";
+        $query_run = mysqli_query($connection, $sql);
+
+        return $query_run;
     }
 
     //goods

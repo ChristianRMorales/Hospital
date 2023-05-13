@@ -108,4 +108,7 @@ if($_POST["input"] == "1"){
     else
         echo 'wrong Delete';
 }
+
+header("location: patientList.php");
+exit();
 ?>
