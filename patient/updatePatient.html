@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Register | Patient Palooza</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css?v=2" />
+  <link rel="icon" href="1.ico" type="image/x-icon">
+  </head>
+  <body>
+    <div class="main">
+        <div class="navbar">
+            <div class="icon">
+                <h2 class="logo">Patient Palooza</h2>
+            </div>
+
+            <div class="menu">
+                <ul>
+                  <li><a href="../Index.html">HOME</a></li>
+                  <li><a href="patientList.php">SEARCH PATIENT</a></li>
+                  <li><a href="deletePatient.html">DELETE</a></li>
+                  <li><a href="addPatient.html">ADD</a></li>
+                  <li class="active">UPDATE</a></li>
+
+                </ul>
+            </div>
+
+           
+        </div> 
+    <div class="content">
+
+        <h1><span>Textbook Rentals</span> <br>Create Your Own Account!</h1>
+        <p class="par">Create Your Own Account <br>So that you can enter the world of Read-iculous, where you'll find a vast collection of enthralling stories
+            <br> a quae totam ipsa illum minus laudantium?</p>
+
+      <div class=" form4 ">
+      <form action="patient.php" method="post"  id="updatePatient">
+
+         <label for="patientId">ID:</label>
+          <input type="text" id="patientId" name="patientId" required>
+
+          <label for="patientName">Name:</label>
+          <input type="text" id="patientName" name="patientName">
+      
+   
+          <label for="Address">Address:</label>
+          <input type="text" id="Address" name="patientAddr">
+   
+    
+          <label for="birth">Birthdate:</label>
+          <div class = "date">
+            <div>
+          <input type="text" id="birth" name="patientBirthYear" placeholder = "year">
+            </div>
+            <div>
+          <input type="text" id="birth" name="patientBirthMonth" placeholder = "month">
+            </div> 
+            <div>
+          <input type="text" id="birth" name="patientBirthDay" placeholder = "day">
+            </div>
+
+          </div>
+          <label for="phone">Phone number:</label>
+          <input type="text" id="phone" name="patientPhone" >
+    
+          <label for="emergencyContact">Emergency Contact number:</label>
+          <input type="text" id="emergencyContact" name="patientEmergencyContact" >
+
+          <label for="dateRegistered">Date Today:</label>
+          <div class = "date">
+            <div>
+          <input type="text" id="dateRegistered" name="patientRegisteredYear" placeholder = "year">
+            </div>
+            <div>
+          <input type="text" id="dateRegistered" name="patientRegisteredMonth" placeholder = "month">
+            </div> 
+            <div>
+          <input type="text" id="dateRegistered" name="patientRegisteredDay" placeholder = "day">
+            </div>
+
+          </div>
+    
+          <input type="hidden" name="input" value="2">
+      </form>
+      <button class="btnn" form="updatePatient" value="submit">UPDATE PATIENT</button>
+    </div>
+
+    </div>
+    </div>
+  </body>
+</html>
