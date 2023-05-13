@@ -129,24 +129,55 @@ class MyOrm {
 
 
     public function filterVisit(string $filterValues){
-        $filterValue1 = null;
         $connection = mysqli_connect("localhost", "root", "", "hospital");
         $sql = "SELECT * FROM visit WHERE CONCAT(visitId,dateOfVisit,dateOfDischarge) LIKE '%$filterValues%' ";
         $query_run = mysqli_query($connection, $sql);
 
-        if(mysqli_num_rows($query_run) == 0){
-            $connection1 = mysqli_connect("localhost", "root", "", "hospital");
-            $sql1 = "SELECT * FROM patient WHERE CONCAT(patientId,patientName,patientDateRegistered) LIKE '%$filterValues%' ";
-            $query_run1 = mysqli_query($connection1, $sql1); 
-            $row = mysqli_fetch_assoc($query_run1);
+        if(mysqli_num_rows($query_run) <= 0){
+            $filteredPatient = $this->filterPatient($filterValues);
+            $row = mysqli_fetch_assoc($filteredPatient);
 
-            $filterValue1 = $row['patientId'];
+            if(mysqli_num_rows($filteredPatient) <= 0){
+                $filteredBed = $this->filterBed($filterValues);
+                $row1 = mysqli_fetch_assoc($filteredBed);
 
-            $connection2 = mysqli_connect("localhost", "root", "", "hospital");
-            $sql2 = "SELECT * FROM visit WHERE CONCAT(visitId,dateOfVisit,dateOfDischarge) LIKE '%$filterValue1%' ";
-            $query_run2 = mysqli_query($connection2, $sql2);
+                if(mysqli_num_rows($filteredBed) <= 0){
+                    $filteredDoctor = $this->filterDoctor($filterValues);
+                    $row2 = mysqli_fetch_assoc($filteredDoctor);
 
-            return $query_run2;
+                    if(mysqli_num_rows($filteredDoctor) <= 0){
+                        return $query_run;
+                    }
+
+                    $filterValue3 = $row2['doctorId'];
+    
+
+                    $sql4 = "SELECT * FROM visit WHERE doctorId = '".$filterValue3."' ";
+                    $query_run4 = mysqli_query( $connection, $sql4);
+    
+                    return $query_run4;
+                }
+
+                $filterValue2 = $row1['bedId'];
+    
+
+                $sql3 = "SELECT * FROM visit WHERE bedId = '".$filterValue2."' ";
+                $query_run3 = mysqli_query( $connection, $sql3);
+    
+       
+    
+                return $query_run3;
+            }
+                
+                
+            
+                $filterValue1 = $row['patientId'];
+
+                $sql2 = "SELECT * FROM visit WHERE patientId = '".$filterValue1."' ";
+                $query_run2 = mysqli_query( $connection, $sql2);
+    
+                return $query_run2;
+         
         }
 
         return $query_run;

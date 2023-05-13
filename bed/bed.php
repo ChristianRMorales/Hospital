@@ -55,4 +55,6 @@ if(isset($_POST["input"]) && $_POST["input"] == "1"){
         echo 'wrong Delete';
 }
 
+header("location: bedList.php");
+exit();    
 ?>
