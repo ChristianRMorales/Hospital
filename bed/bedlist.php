@@ -21,15 +21,17 @@ if(isset($_POST['search']))
     <div class="main">
         <div class="navbar">
             <div class="icon">
-                <h2 class="logo">Patient Palooza</h2>
+                <h2 class="logo">Bed Palooza</h2>
             </div>
 
             <div class="menu">
                 <ul>
                     <li><a href="../Index.html">HOME</a></li>
-                    <li><a href="patientlist.php">SEARCH PATIENT</a></li>
-                    <li><a href="deletebed.html">DELETE</a></li>
-                    <li><a href="addbed.html">ADD</a></li>
+                    <li class="active">SEARCH BED</li>
+                    <li><a href="deleteBed.html">DELETE</a></li>
+                    <li><a href="addBed.html">ADD</a></li>
+                    <li><a href="updateBed.html">ADD</a></li>
+
                 </ul>
             </div>
         </div> 

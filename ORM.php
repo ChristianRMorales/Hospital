@@ -16,6 +16,37 @@ class MyOrm {
         }   
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function findPatient(string $filterValues){
         $connection = mysqli_connect("localhost", "root", "", "hospital");
         $sql = "SELECT * FROM patient WHERE patientId = '". $filterValues ."' ";
@@ -57,6 +88,44 @@ class MyOrm {
 
         return $query_run;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public function filterVisit(string $filterValues){
@@ -121,6 +190,34 @@ class MyOrm {
     
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function insertDoctor(string $doctorName, string $doctorAddress,string $doctorPhone){
         
         $sql = "INSERT INTO doctor VALUES (0 ,'".$doctorName."','".$doctorAddress."','".$doctorPhone."');";
@@ -176,6 +273,40 @@ class MyOrm {
         return $query_run;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function filterBed(string $filterValues){
         $connection = mysqli_connect("localhost", "root", "", "hospital");
         $sql = "SELECT * FROM bed WHERE CONCAT(bedId, bedName, ratePerday, bedtype) LIKE '%$filterValues%' ";
@@ -184,7 +315,55 @@ class MyOrm {
         return $query_run;
     }
 
+    public function insertBed(string $bedName, string $ratePerDay,string $bedType){
+        
+        $sql = "INSERT INTO bed VALUES (0 ,'".$bedName."','".$ratePerDay."','".$bedType."');";
+        $stmt = $this->connection->query($sql);
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        return 1;
+        }
+
+    // update a doctor's information
+    
+    public function updateBed(string $bedId, string $bedName, string $ratePerDay,string $bedType){
+        $sql = "UPDATE bed SET bedName = '". $bedName ."', ratePerDay = '". $ratePerDay ."', bedType = '". $bedType ."' WHERE (bedId= '".$bedId."');'";
+        $stmt = $this->connection->query($sql);
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return 1;
+        }
+
+    
+    // delete a doctor
+    public function deleteBed($id)
+    {   
+        if($id != 1){
+        try {
+            $stmt = $this->connection->prepare("DELETE FROM bed WHERE bedId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            return $stmt->rowCount();
+        } catch (PDOException $e) {
+            if ($this->debug) {
+                die("Delete failed: " . $e->getMessage());
+            }
+            return 0;
+        }
+    }else{
+
+    }
+    }
+    
+    // find a doctor by id
+    public function findBed($filterValues)
+    {
+        $connection = mysqli_connect("localhost", "root", "", "hospital");
+        $sql = "SELECT * FROM bed WHERE bedId = '". $filterValues ."' ";
+        $query_run = mysqli_query($connection, $sql);
+
+        return $query_run;
+    }
     
     }
     

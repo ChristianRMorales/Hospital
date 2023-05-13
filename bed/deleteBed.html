@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Delete | Doctor Palooza</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css?v=2" />
+    <link rel="icon" href="1.ico" type="image/x-icon">
+  </head>
+  <body>
+    <div class="main">
+      <div class="navbar">
+        <div class="icon">
+          <h2 class="logo">Bed Palooza</h2>
+        </div>
+        <div class="menu">
+          <ul>
+            <li><a href="../Index.html">HOME</a></li>
+            <li><a href="bedList.php">SEARCH BED</a></li>
+            <li class="active">DELETE</li>
+            <li><a href="addBed.html">ADD</a></li>
+            <li><a href="updateBed.html">UPDATE</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="content">
+        <h1><span>Doctor Palooza</span> <br>Delete Bed Record</h1>
+        <p class="par">Delete a Doctor record from the system.<br> Are you sure you want to delete the following Doctor?</p>
+        <div class=" form3 ">
+          <form action="bed.php" method="post" id="delBed">
+            <label for="bedId">Bed ID:</label>
+            <input type="text" id="bedId" name="bedId" required>
+            <input type="hidden" name="input" value="0">
+          </form>
+          <button class="btnn" form="delBed" value="submit">Delete Bed</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

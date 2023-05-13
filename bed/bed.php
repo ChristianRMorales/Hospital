@@ -6,7 +6,7 @@ $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
 
 if(isset($_POST["input"]) && $_POST["input"] == "1"){
     $name = $_POST["bedName"];
-    $rate = $_POST["ratePerday"];
+    $rate = $_POST["ratePerDay"];
     $bedType = $_POST["bedType"];
 
     $success = $db->insertBed($name, $rate, $bedType);
@@ -19,7 +19,7 @@ if(isset($_POST["input"]) && $_POST["input"] == "1"){
 } else if(isset($_POST["input"]) && $_POST["input"] == "2"){
     $bedId = $_POST['bedId'];
     $name = $_POST["bedName"];
-    $rate = $_POST["ratePerday"];
+    $rate = $_POST["ratePerDay"];
     $bedType = $_POST["bedType"];
 
     $query1 = $db->findBed($bedId);
@@ -30,7 +30,7 @@ if(isset($_POST["input"]) && $_POST["input"] == "1"){
     }
 
     if (empty($rate)){
-        $rate = $row['ratePerday'];
+        $rate = $row['ratePerDay'];
     }
 
     if (empty($bedType)){

@@ -21,7 +21,10 @@ if($_POST["input"] == "1"){
     if(strtoupper($patientType) == "IN"){
 
     }else {
-        $bedId = "1";
+        $query3 = $db->filterBed("NOBED");
+        $bed = mysqli_fetch_assoc($query3);
+
+        $bedId = $bed['bedId'];
     }
 
     $success = $db->insertVisit( $patientId, $patientType, $doctorId, $bedId, $dateOfVisit, $dateOfDischarge,  $symptoms, $disease, $treatment);
@@ -122,8 +125,12 @@ if($_POST["input"] == "1"){
         if(strtoupper($patientType) == "IN"){
 
         }else {
-            $bedId = "1";
+            $query3 = $db->filterBed("NOBED");
+            $bed = mysqli_fetch_assoc($query3);
+    
+            $bedId = $bed['bedId'];
         }
+    
     
         $success = $db->updateVisit( $visitId ,$patientId, $patientType, $doctorId, $bedId, $dateOfVisit, $dateOfDischarge,  $symptoms, $disease, $treatment);
 
