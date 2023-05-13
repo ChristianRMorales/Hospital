@@ -87,10 +87,10 @@ $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
                                                  ?>
                                                 <tr>
                                                     <td><?= $items['visitId'] ?></td>
-                                                    <td><?= $items['bedId'] ?></td>
+                                                    <td><?php if($items['bedId'] == 1){echo "no bed";}else{ echo $items['bedId'];} ?></td>
                                                     <td><?=  $doctorName['doctorName'] ?></td>
                                                     <td><?=  $patientName['patientName']?></td>
-                                                    <td><?=  $items['patientType']?></td>
+                                                    <td><?=  strtoupper($items['patientType'])?></td>
                                                     <td><?=  $items['dateOfVisit']?></td>
                                                     <td><?=  $items['dateOfDischarge']?></td>
                             
