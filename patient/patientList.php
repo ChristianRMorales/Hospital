@@ -7,7 +7,7 @@ $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
 <head>
     <title>Patient | Patient Palooza</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css?v=2" />
-    <link rel="icon" href="1.ico" type="image/x-icon">
+    <link rel="icon" href="../css/1.ico" type="image/x-icon">
 </head>
 <body>
 

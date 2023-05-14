@@ -14,7 +14,7 @@ if(isset($_POST['search']))
 <head>
     <title>Beds | Patient Palooza</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css?v=2" />
-    <link rel="icon" href="1.ico" type="image/x-icon">
+    <link rel="icon" href="../css/1.ico" type="image/x-icon">
 </head>
 <body>
 
