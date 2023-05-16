@@ -1,7 +1,8 @@
 <?php
 require_once '../ORM.php';
 
-$db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
+$db = new MyOrm();
+
 
 
 
@@ -46,6 +47,8 @@ if($_POST["input"] == "1"){
 
 
     $query1 = $db->findPatient($patientId);
+    
+    
     $row = mysqli_fetch_assoc($query1);
 
         if (empty($name)){
@@ -88,8 +91,9 @@ if($_POST["input"] == "1"){
         }else if (empty($pRegisteredDay)){
             $pRegisteredDate = $row['patientDateRegistered'];
         }
-    
-        $success = $db->updatePatient($patientId, $name,$addr,$birthDate,$phone,$eContact,$pRegisteredDate);
+        $newDB = new MyOrm();
+
+    $success = $newDB->updatePatient($patientId, $name,$addr,$birthDate,$phone,$eContact,$pRegisteredDate);
 
     if($success == 1)
         echo 'SUCCESS update';
