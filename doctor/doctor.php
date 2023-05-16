@@ -1,7 +1,7 @@
 <?php
 require_once '../ORM.php';
 
-$db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
+$db = new MyOrm();
 
 if(isset($_POST["input"]) && $_POST["input"] == "1"){
     $name = $_POST["doctorName"];
@@ -35,7 +35,7 @@ if(isset($_POST["input"]) && $_POST["input"] == "1"){
     if (empty($phone)){
         $phone = $row['doctorPhone'];
     }
-
+    $db->resetQuery();
     $success = $db->updateDoctor($doctorId, $name, $addr, $phone);
 
     if($success == 1)

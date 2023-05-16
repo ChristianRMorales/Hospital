@@ -109,6 +109,11 @@ class MyOrm {
         return $this;
     }
 
+    public function resetQuery(): string {
+        $this->dbString = " ";
+        return $this->dbString;
+    }
+
 
 
 
@@ -146,7 +151,7 @@ class MyOrm {
                     ->showQuery();
 
         $query_run = $this->connectSQLI()->query($sql);
-
+     
         return $query_run;
     }
 
@@ -188,7 +193,7 @@ class MyOrm {
                     ->sc()
                     ->showQuery();
                     
-        print($sql);
+
         $stmt = $this->connectSQLI()->query($sql);
 
         return 1;
@@ -203,7 +208,7 @@ class MyOrm {
                        ->sc()
                        ->showQuery();
 
-       
+        print($sqlNew); 
         $query_run = $this->connectSQLI()->query($sqlNew);
 
         return $query_run;
@@ -249,19 +254,34 @@ class MyOrm {
 
 
     public function filterVisit(string $filterValues){
-        $connection = mysqli_connect("localhost", "root", "", "hospital");
-        $sql = "SELECT * FROM visit WHERE CONCAT(visitId,dateOfVisit,dateOfDischarge) LIKE '%$filterValues%' ";
-        $query_run = mysqli_query($connection, $sql);
+
+        $sqlNew = $this->select()
+                    ->from('visit')
+                    ->where('CONCAT(visitId,dateOfVisit,dateOfDischarge)')
+                    ->isLike($filterValues)
+                    ->sc()
+                    ->showQuery();
+
+    
+        $query_run = $this->connectSQLI()->query($sqlNew);
+
+
 
         if(mysqli_num_rows($query_run) <= 0){
+            $this->resetQuery();
+
             $filteredPatient = $this->filterPatient($filterValues);
             $row = mysqli_fetch_assoc($filteredPatient);
 
             if(mysqli_num_rows($filteredPatient) <= 0){
+                $this->resetQuery();
+
                 $filteredBed = $this->filterBed($filterValues);
                 $row1 = mysqli_fetch_assoc($filteredBed);
 
                 if(mysqli_num_rows($filteredBed) <= 0){
+                    $this->resetQuery();
+
                     $filteredDoctor = $this->filterDoctor($filterValues);
                     $row2 = mysqli_fetch_assoc($filteredDoctor);
 
@@ -270,19 +290,35 @@ class MyOrm {
                     }
 
                     $filterValue3 = $row2['doctorId'];
-    
+                    $this->resetQuery();
 
                     $sql4 = "SELECT * FROM visit WHERE doctorId = '".$filterValue3."' ";
-                    $query_run4 = mysqli_query( $connection, $sql4);
+
+                    $sql4 = $this->select()
+                                 ->from('visit')
+                                 ->where('doctorId')
+                                 ->isEqualTo($filterValue3)
+                                 ->sc()
+                                 ->showQuery();
+
+                     $query_run4 = $this->connectSQLI()->query($sql4);
     
                     return $query_run4;
                 }
 
                 $filterValue2 = $row1['bedId'];
-    
+                $this->resetQuery();
 
                 $sql3 = "SELECT * FROM visit WHERE bedId = '".$filterValue2."' ";
-                $query_run3 = mysqli_query( $connection, $sql3);
+
+                $sql3 = $this->select()
+                                 ->from('visit')
+                                 ->where('bedId')
+                                 ->isEqualTo($filterValue2)
+                                 ->sc()
+                                 ->showQuery();
+
+                $query_run3 = $this->connectSQLI()->query($sql3);
     
        
     
@@ -292,9 +328,18 @@ class MyOrm {
                 
             
                 $filterValue1 = $row['patientId'];
+                $this->resetQuery();
 
                 $sql2 = "SELECT * FROM visit WHERE patientId = '".$filterValue1."' ";
-                $query_run2 = mysqli_query( $connection, $sql2);
+
+                $sql2 = $this->select()
+                                 ->from('visit')
+                                 ->where('patientId')
+                                 ->isEqualTo($filterValue1)
+                                 ->sc()
+                                 ->showQuery();
+             
+                $query_run2 = $this->connectSQLI()->query($sql2);                
     
                 return $query_run2;
          
@@ -304,37 +349,56 @@ class MyOrm {
     }
 
     public function findVisit(string $filterValues){
-        $connection = mysqli_connect("localhost", "root", "", "hospital");
-        $sql = "SELECT * FROM visit WHERE visitId = '". $filterValues ."' ";
-        $query_run = mysqli_query($connection, $sql);
+        $sql = $this->select()
+        ->from('visit')
+        ->where('visitId')
+        ->isEqualTo($filterValues)
+        ->sc()
+        ->showQuery();
 
-        return $query_run;
+$query_run = $this->connectSQLI()->query($sql);
+
+return $query_run;
     }
-
+ 
     public function insertVisit(string $patientId, string $patientType, string $doctorId, string $bedId, string $dateOfVisitt, string $dateOfDischarge,  string $symptoms, string $disease, string $treatment ){
         
-        $sql = "INSERT INTO visit VALUES (0 ,'".$patientId."','".$patientType."','".$doctorId."','". $bedId ."','". $dateOfVisitt ."','" . $dateOfDischarge ."','".$symptoms."','".$disease."','".$treatment.  "');";
-        $stmt = $this->connection->query($sql);
-        $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $sql = $this->insert()
+                    ->into('visit')
+                    ->values("(0 ,'".$patientId."','".$patientType."','".$doctorId."','". $bedId ."','". $dateOfVisitt ."','"  . $dateOfDischarge . "','"  .$symptoms."','"  .$disease."','"  .$treatment. "')")
+                    ->sc()
+                    ->showQuery();
+        print($sql);
+        $stmt = $this->connectSQLI()->query($sql);
 
         return 1;
         }
 
     
     public function deleteVisit(string $visitId){
-        $sql = "DELETE FROM visit WHERE visitId=".$visitId.";";
-        $stmt = $this->connection->query($sql);
-        $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $sql = $this->delete()
+        ->from('visit')
+        ->where('visitId')
+        ->isEqualTo($visitId)
+        ->sc()
+        ->showQuery();
 
+$stmt = $this->connectSQLI()->query($sql);
         return 1;
     }
     
     
     public function updateVisit(string $visitId, string $patientId, string $patientType, string $doctorId, string $bedId, string $dateOfVisit, string $dateOfDischarge,  string $symptoms, string $disease, string $treatment ){
-        
-        $sql = "UPDATE visit SET patientId = '". $patientId ."', patientType = '". $patientType ."', doctorId = '". $doctorId ."', bedId = '". $bedId ."', dateOfVisit = '". $dateOfVisit ."', dateOfDischarge = '". $dateOfDischarge ."', symptoms = '". $symptoms ."', disease = '". $disease ."', treatment = '". $treatment ."' WHERE (patientId = '".$patientId."');'";
-        $stmt = $this->connection->query($sql);
-        $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+         $sql = $this->update('visit')
+                    ->set("patientId = '". $patientId ."', patientType = '". $patientType ."', doctorId = '". $doctorId ."', bedId = '". $bedId ."', dateOfVisit = '". $dateOfVisit ."', dateOfDischarge = '". $dateOfDischarge ."', symptoms = '". $symptoms ."', disease = '". $disease ."', treatment = '". $treatment ."'")
+                    ->where('visitId')
+                    ->isEqualTo($visitId)
+                    ->sc()
+                    ->showQuery();
+                    
+        print($sql);
+        $stmt = $this->connectSQLI()->query($sql);
 
         return 1;
         }
@@ -371,9 +435,14 @@ class MyOrm {
 
     public function insertDoctor(string $doctorName, string $doctorAddress,string $doctorPhone){
         
-        $sql = "INSERT INTO doctor VALUES (0 ,'".$doctorName."','".$doctorAddress."','".$doctorPhone."');";
-        $stmt = $this->connection->query($sql);
-        $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $sql = $this->insert()
+                    ->into('doctor')
+                    ->values("(0 ,'".$doctorName."','".$doctorAddress."','".$doctorPhone."')")
+                    ->sc()
+                    ->showQuery();
+
+        $stmt = $this->connectSQLI()->query($sql);
 
         return 1;
         }
@@ -381,45 +450,59 @@ class MyOrm {
     // update a doctor's information
     
     public function updateDoctor(string $doctorId, string $doctorName, string $doctorAddress, string $doctorPhone){
-        $sql = "UPDATE doctor SET doctorName = '". $doctorName ."', doctorAddress = '". $doctorAddress ."', doctorPhone = '". $doctorPhone ."' WHERE (doctorId = '".$doctorId."');'";
-        $stmt = $this->connection->query($sql);
-        $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $sql = $this->update('doctor')
+                    ->set("doctorName = '". $doctorName ."', doctorAddress = '". $doctorAddress ."', doctorPhone = '". $doctorPhone ."'")
+                    ->where('doctorId')
+                    ->isEqualTo($doctorId)
+                    ->sc()
+                    ->showQuery();
+                    
 
+        $stmt = $this->connectSQLI()->query($sql);
         return 1;
         }
 
     
     // delete a doctor
-    public function deleteDoctor($id)
+    public function deleteDoctor($doctorId)
     {
-        try {
-            $stmt = $this->connection->prepare("DELETE FROM doctor WHERE doctorId = :id");
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-            return $stmt->rowCount();
-        } catch (PDOException $e) {
-            if ($this->debug) {
-                die("Delete failed: " . $e->getMessage());
-            }
-            return 0;
-        }
+        $sql = $this->delete()
+        ->from('doctor')
+        ->where('doctorId')
+        ->isEqualTo($doctorId)
+        ->sc()
+        ->showQuery();
+
+$stmt = $this->connectSQLI()->query($sql);
     }
     
     // find a doctor by id
     public function findDoctor($filterValues)
     {
-        $connection = mysqli_connect("localhost", "root", "", "hospital");
-        $sql = "SELECT * FROM doctor WHERE doctorId = '". $filterValues ."' ";
-        $query_run = mysqli_query($connection, $sql);
+        $sql = $this->select()
+                    ->from('doctor')
+                    ->where('doctorId')
+                    ->isEqualTo($filterValues)
+                    ->sc()
+                    ->showQuery();
+
+            $query_run = $this->connectSQLI()->query($sql);
 
         return $query_run;
     }
 
     //goods
     public function filterDoctor(string $filterValues){
-        $connection = mysqli_connect("localhost", "root", "", "hospital");
-        $sql = "SELECT * FROM doctor WHERE CONCAT(doctorId, doctorName, doctorAddress, doctorPhone) LIKE '%$filterValues%' ";
-        $query_run = mysqli_query($connection, $sql);
+
+        $sqlNew = $this->select()
+                    ->from('doctor')
+                    ->where('CONCAT(doctorId, doctorName, doctorAddress, doctorPhone)')
+                    ->isLike($filterValues)
+                    ->sc()
+                    ->showQuery();
+
+    
+     $query_run = $this->connectSQLI()->query($sqlNew);
     
         return $query_run;
     }
@@ -459,18 +542,31 @@ class MyOrm {
 
 
     public function filterBed(string $filterValues){
-        $connection = mysqli_connect("localhost", "root", "", "hospital");
-        $sql = "SELECT * FROM bed WHERE CONCAT(bedId, bedName, ratePerday, bedtype) LIKE '%$filterValues%' ";
-        $query_run = mysqli_query($connection, $sql);
+                    
+     $sqlNew = $this->select()
+                    ->from('bed')
+                    ->where('CONCAT(bedId, bedName, ratePerday, bedtype)')
+                    ->isLike($filterValues)
+                    ->sc()
+                    ->showQuery();
+
     
-        return $query_run;
+     $query_run = $this->connectSQLI()->query($sqlNew);
+
+     return $query_run;
+
     }
 
     public function insertBed(string $bedName, string $ratePerDay,string $bedType){
         
-        $sql = "INSERT INTO bed VALUES (0 ,'".$bedName."','".$ratePerDay."','".$bedType."');";
-        $stmt = $this->connection->query($sql);
-        $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        $sql = $this->insert()
+                    ->into('bed')
+                    ->values("(0 ,'".$bedName."','".$ratePerDay."','".$bedType."')")
+                    ->sc()
+                    ->showQuery();
+
+        $stmt = $this->connectSQLI()->query($sql);
 
         return 1;
         }
@@ -478,40 +574,45 @@ class MyOrm {
     // update a doctor's information
     
     public function updateBed(string $bedId, string $bedName, string $ratePerDay,string $bedType){
-        $sql = "UPDATE bed SET bedName = '". $bedName ."', ratePerDay = '". $ratePerDay ."', bedType = '". $bedType ."' WHERE (bedId= '".$bedId."');'";
-        $stmt = $this->connection->query($sql);
-        $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+
+        $sql = $this->update('bed')
+        ->set("bedName = '". $bedName ."', ratePerDay = '". $ratePerDay ."', bedType = '". $bedType ."'")
+        ->where('bedId')
+        ->isEqualTo($bedId)
+        ->sc()
+        ->showQuery();
+        
+print($sql);
+$stmt = $this->connectSQLI()->query($sql);
         return 1;
         }
 
     
     // delete a doctor
-    public function deleteBed($id)
+    public function deleteBed($bedId)
     {   
-        if($id != 1){
-        try {
-            $stmt = $this->connection->prepare("DELETE FROM bed WHERE bedId = :id");
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-            return $stmt->rowCount();
-        } catch (PDOException $e) {
-            if ($this->debug) {
-                die("Delete failed: " . $e->getMessage());
-            }
-            return 0;
-        }
-    }else{
+        $sql = $this->delete()
+        ->from('bed')
+        ->where('bedId')
+        ->isEqualTo($bedId)
+        ->sc()
+        ->showQuery();
 
-    }
+$stmt = $this->connectSQLI()->query($sql);
     }
     
     // find a doctor by id
     public function findBed($filterValues)
     {
-        $connection = mysqli_connect("localhost", "root", "", "hospital");
-        $sql = "SELECT * FROM bed WHERE bedId = '". $filterValues ."' ";
-        $query_run = mysqli_query($connection, $sql);
+        $sql = $this->select()
+                ->from('bed')
+                ->where('bedId')
+                ->isEqualTo($filterValues)
+                ->sc()
+                ->showQuery();
+
+            $query_run = $this->connectSQLI()->query($sql);
 
         return $query_run;
     }
