@@ -2,7 +2,7 @@
 
 require_once '../ORM.php';
 
-$db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
+$db = new MyOrm();
 
 if(isset($_POST["input"]) && $_POST["input"] == "1"){
     $name = $_POST["bedName"];
@@ -36,7 +36,7 @@ if(isset($_POST["input"]) && $_POST["input"] == "1"){
     if (empty($bedType)){
         $bedType = $row['bedType'];
     }
-
+    $db->resetQuery();
     $success = $db->updateBed($bedId, $name, $rate, $bedType);
 
     if($success == 1)

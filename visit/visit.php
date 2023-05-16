@@ -1,7 +1,7 @@
 <?php
 require_once '../ORM.php';
 
-$db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
+$db = new MyOrm();
 
 
 
@@ -25,6 +25,7 @@ if($_POST["input"] == "1"){
         $bed = mysqli_fetch_assoc($query3);
 
         $bedId = $bed['bedId'];
+        $db->resetQuery();
     }
 
     $success = $db->insertVisit( $patientId, $patientType, $doctorId, $bedId, $dateOfVisit, $dateOfDischarge,  $symptoms, $disease, $treatment);
@@ -130,7 +131,7 @@ if($_POST["input"] == "1"){
     
             $bedId = $bed['bedId'];
         }
-    
+        $db->resetQuery();
     
         $success = $db->updateVisit( $visitId ,$patientId, $patientType, $doctorId, $bedId, $dateOfVisit, $dateOfDischarge,  $symptoms, $disease, $treatment);
 
@@ -141,6 +142,8 @@ if($_POST["input"] == "1"){
 
   
     }
+
+
 header("location: visitList.php");
 exit();       
 ?>

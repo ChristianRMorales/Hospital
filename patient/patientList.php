@@ -1,7 +1,7 @@
 <?php
 require_once '../ORM.php';
 
-$db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
+$db = new MyOrm();
 ?>
 <html lang="en">
 <head>

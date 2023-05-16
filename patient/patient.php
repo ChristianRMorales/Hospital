@@ -91,9 +91,9 @@ if($_POST["input"] == "1"){
         }else if (empty($pRegisteredDay)){
             $pRegisteredDate = $row['patientDateRegistered'];
         }
-        $newDB = new MyOrm();
+        $db->resetQuery();
 
-    $success = $newDB->updatePatient($patientId, $name,$addr,$birthDate,$phone,$eContact,$pRegisteredDate);
+    $success = $db->updatePatient($patientId, $name,$addr,$birthDate,$phone,$eContact,$pRegisteredDate);
 
     if($success == 1)
         echo 'SUCCESS update';
