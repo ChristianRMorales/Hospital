@@ -119,7 +119,17 @@ class MyOrm {
 
 
 
+    public function isValidId($id){
+        $result = null;
 
+        if(!preg_match("/^[a-zA-Z0-100]*$/", $id)){
+            $result = false;
+        }else{
+            $result = true;
+        }
+
+        return $result;
+    }
 
 
 

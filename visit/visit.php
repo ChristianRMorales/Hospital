@@ -4,7 +4,7 @@ require_once '../ORM.php';
 $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
 
 
-
+if(isset($_POST['submit'])){
 if($_POST["input"] == "1"){
     $patientId = $_POST['patientId'];
     $patientType = $_POST['patientType'];
@@ -22,7 +22,7 @@ if($_POST["input"] == "1"){
 
     }else {
         $query3 = $db->filterBed("NOBED");
-        $bed = mysqli_fetch_assoc($query3);
+        $bed = $query3->fetch();
 
         $bedId = $bed['bedId'];
         $db->resetQuery();
@@ -131,7 +131,7 @@ if($_POST["input"] == "1"){
 
   
     }
-
+}
 
 header("location: visitList.php");
 exit();       

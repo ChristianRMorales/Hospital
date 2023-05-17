@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 ?>
 
 <html lang="en" >
@@ -37,31 +34,23 @@
             <p class="par">The ultimate destination for book lovers <br>Enter a world of wonder with Read-iculous, where you'll find a vast collection of enthralling stories
                 <br> a quae totam ipsa illum minus laudantium?</p>
 
-                <button class="cn"><a href="signUp.php">JOIN US</a></button>
 
                 <div class="form">
-                    <h2>Login Here</h2><br>
+                    <h2>Sign UP Here</h2><br>
                    
-                    <form action="user/user.php" method="post"  id="login" >
+                    <form action="user.php" method="post"  id="signUp" >
 
-                    <input type="username" name="logUser" placeholder="Enter Username Here">
-                    <input type="password" name="logPass" placeholder="Enter Password Here">
-                    <input type="hidden" name="input" value = "1" required>
+                    <input type="username" name="signUpUser" placeholder="Enter Username Here" required>
+                    <input type="password" name="signUpPass" placeholder="Enter Password Here" required>
+                    <input type="password" name="repeatSignUpPass" placeholder="Repeat Password Here" required>
+                    <input type="Email" name="signUpEmail" placeholder="Enter Email Here" required>
+                    <input type="hidden" name="input" value = "2" required>
+                  
                     </form>
-                    <button class="btnn" form="login" name="submit" value="submit">Login</button>
+                    <button class="btnn" form="signUp" value="submit">SignUp</button>
 
-                    <p class="link">Don't have an account<br>
-                    <a href="signUp.php">Sign up </a> here</a></p>
-                    <p class="liw">Log in with</p>
+               >
 
-                    <center>
-                    <div class="icons">
-                        <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
-                        <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
-                        <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
-                        <a href="#"><ion-icon name="logo-google"></ion-icon></a>
-                    </div>
-                    </center>
                 </div>
                     </div>
                 </div>

@@ -4,6 +4,7 @@ require_once '../ORM.php';
 
 $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
 
+if(isset($_POST['submit'])){
 if(isset($_POST["input"]) && $_POST["input"] == "1"){
     $name = $_POST["bedName"];
     $rate = $_POST["ratePerDay"];
@@ -48,7 +49,7 @@ if(isset($_POST["input"]) && $_POST["input"] == "1"){
 
 
 }
-
+}
 header("location: bedList.php");
 exit();    
 ?>
