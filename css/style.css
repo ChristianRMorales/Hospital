@@ -13,25 +13,11 @@
     position: relative;
 }
 
-.main1{
-    width: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,0.5)50%,rgba(0,0,0,0.5)50%), url(1.jpg);
-    background-position: center;
-    background-size: cover;
-    height: 150vh;
-    background-image: url("BGimage3.jpg");
-    position: relative;
-}
 
-.main2{
-    width: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,0.5)50%,rgba(0,0,0,0.5)50%), url(1.jpg);
-    background-position: center;
-    background-size: cover;
-    height: 120vh;
-    background-image: url("BGimage3.jpg");
-    position: relative;
-}
+
+
+
+
 .date{
     display: flex;
     flex-direction: row;

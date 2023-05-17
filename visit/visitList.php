@@ -5,7 +5,7 @@ $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
 ?>
 <html lang="en">
 <head>
-    <title>VISIT | Patient Palooza</title>
+    <title>VISIT | visit Palooza</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css?v=2" />
 </head>
 <body>
@@ -13,16 +13,16 @@ $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
     <div class="main">
         <div class="navbar">
             <div class="icon">
-                <h2 class="logo">Patient Palooza</h2>
+                <h2 class="logo">Visit Palooza</h2>
             </div>
 
             <div class="menu">
                 <ul>
                     <li><a href="../Index.html">HOME</a></li>
                     <li class="active">SEARCH VISIT</a></li>
-                    <li><a href="deleteVisit.html">DELETE</a></li>
-                    <li><a href="addVisit.html">ADD</a></li>
-                    <li><a href="updateVisit.html">UPDATE</a></li>
+                    <li><a href="deleteVisit.html">DELETE VISIT</a></li>
+                    <li><a href="addVisit.html">ADD VISIT</a></li>
+                    <li><a href="updateVisit.html">UPDATE VISIT</a></li>
                 </ul>
             </div>
             
@@ -137,3 +137,17 @@ $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
 </body>
 </html>
+
+
+
+<style>
+  .main{
+    width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.5)50%,rgba(0,0,0,0.5)50%), url(2.jpg);
+    background-position: center;
+    background-size: cover;
+    height: 120vh;
+    background-image: url("../css/visit.jpg");
+    position: relative;
+}
+</style>

@@ -11,7 +11,7 @@ $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
 </head>
 <body>
 
-    <div class="main">
+    <div class="main4">
         <div class="navbar">
             <div class="icon">
                 <h2 class="logo">Doctor Palooza</h2>
@@ -107,3 +107,17 @@ $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
 </body>
 </html>
+
+
+
+<style>
+  .main4{
+    width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.5)50%,rgba(0,0,0,0.5)50%), url(2.jpg);
+    background-position: center;
+    background-size: cover;
+    height: 120vh;
+    background-image: url("../css/doc.jpg");
+    position: relative;
+}
+</style>
