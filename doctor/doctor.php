@@ -2,7 +2,7 @@
 require_once '../ORM.php';
 $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
 
-
+if(isset($_POST['submit'])){
 if(isset($_POST["input"]) && $_POST["input"] == "1"){
     $name = $_POST["doctorName"];
     $addr = $_POST["doctorAddress"];
@@ -43,6 +43,7 @@ if(isset($_POST["input"]) && $_POST["input"] == "1"){
     $db->deleteDoctor($doctorId);
 
 
+}
 }
 header("location: doctorList.php");
 exit();    
