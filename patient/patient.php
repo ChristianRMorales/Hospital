@@ -1,7 +1,7 @@
 <?php
 require_once '../ORM.php';
 
-$db = new MyOrm();
+$db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
 
 
 
@@ -19,13 +19,9 @@ if($_POST["input"] == "1"){
     $pRegisteredDay = $_POST["patientRegisteredDay"];
 
 
-    $success = $db->insertPatient($name,$addr,($birthYear ."-". $birthMonth ."-". $birthDay),$phone,$eContact,($pRegisteredYear ."-".  $pRegisteredMonth ."-". $pRegisteredDay));
+    $db->insertPatient($name,$addr,($birthYear ."-". $birthMonth ."-". $birthDay),$phone,$eContact,($pRegisteredYear ."-".  $pRegisteredMonth ."-". $pRegisteredDay));
     
     
-    if($success == 1)
-        echo 'SUCCESS INSERT';
-    else
-        echo 'wrong INSERT';
 
 }else if($_POST["input"] == "2"){
     
@@ -47,16 +43,15 @@ if($_POST["input"] == "1"){
 
 
     $query1 = $db->findPatient($patientId);
+    $row = $query1->fetch();
     
-    
-    $row = mysqli_fetch_assoc($query1);
 
         if (empty($name)){
-            $name = $row['patientName'];
+            $name =  $row['patientName'];
         }
 
         if (empty($addr)){
-            $addr = $row['patientAddress'];
+            $addr =  $row['patientAddress'];
         }
 
 
@@ -92,25 +87,17 @@ if($_POST["input"] == "1"){
             $pRegisteredDate = $row['patientDateRegistered'];
         }
         $db->resetQuery();
+    
+    $db->updatePatient($patientId, $name,$addr,$birthDate,$phone,$eContact,$pRegisteredDate);
 
-    $success = $db->updatePatient($patientId, $name,$addr,$birthDate,$phone,$eContact,$pRegisteredDate);
-
-    if($success == 1)
-        echo 'SUCCESS update';
-    else
-        echo 'wrong update';
 
 }else if($_POST["input"] == "0"){
     $patientId = $_POST['patientId'];
 
 
-    $success = $db->deletePatient($patientId);
+    $db->deletePatient($patientId);
 
 
-    if($success == 1)
-        echo 'SUCCESS Delete';
-    else
-        echo 'wrong Delete';
 }
 
 header("location: patientList.php");

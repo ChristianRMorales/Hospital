@@ -1,7 +1,7 @@
 <?php
 require_once '../ORM.php';
 
-$db = new MyOrm();
+$db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
 
 
 
@@ -28,13 +28,8 @@ if($_POST["input"] == "1"){
         $db->resetQuery();
     }
 
-    $success = $db->insertVisit( $patientId, $patientType, $doctorId, $bedId, $dateOfVisit, $dateOfDischarge,  $symptoms, $disease, $treatment);
+    $db->insertVisit( $patientId, $patientType, $doctorId, $bedId, $dateOfVisit, $dateOfDischarge,  $symptoms, $disease, $treatment);
 
-     
-    if($success == 1)
-        echo 'SUCCESS INSERT';
-    else
-        echo 'wrong INSERT';
 
 
 
@@ -42,13 +37,10 @@ if($_POST["input"] == "1"){
     $visitId = $_POST['visitId'];
 
 
-    $success = $db->deleteVisit($visitId);
+    $db->deleteVisit($visitId);
 
 
-    if($success == 1)
-        echo 'SUCCESS Delete';
-    else
-        echo 'wrong Delete';
+
 
 
 
@@ -67,7 +59,7 @@ if($_POST["input"] == "1"){
     $treatment = $_POST['treatment'];
 
     $query1 = $db->findVisit($visitId);
-    $row = mysqli_fetch_assoc($query1);
+    $row = $query1->fetch();
 
         if (empty($patientId)){
             $patientId = $row['patientId'];
@@ -127,18 +119,15 @@ if($_POST["input"] == "1"){
 
         }else {
             $query3 = $db->filterBed("NOBED");
-            $bed = mysqli_fetch_assoc($query3);
+            $bed = $query3->fetch();
     
             $bedId = $bed['bedId'];
         }
         $db->resetQuery();
     
-        $success = $db->updateVisit( $visitId ,$patientId, $patientType, $doctorId, $bedId, $dateOfVisit, $dateOfDischarge,  $symptoms, $disease, $treatment);
+        $db->updateVisit( $visitId ,$patientId, $patientType, $doctorId, $bedId, $dateOfVisit, $dateOfDischarge,  $symptoms, $disease, $treatment);
 
-    if($success == 1)
-        echo 'SUCCESS update';
-    else
-        echo 'wrong update';   
+
 
   
     }

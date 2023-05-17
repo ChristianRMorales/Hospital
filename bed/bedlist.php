@@ -1,7 +1,7 @@
 <?php
 require_once '../ORM.php';
 
-$db = new MyOrm();
+$db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
 
 if(isset($_POST['search']))
 {
@@ -44,8 +44,9 @@ if(isset($_POST['search']))
 
             <div class="search">
                 <form action="" method="POST">
-                    <input class="srch" type="text" name="search" placeholder="Type To text">
-                    <button class="btn" type="submit">Search</button>
+                <input class="srch" type="text" name="search" placeholder="Type To text">
+                <button class="btn" type="submit">Search</button>
+      
                 </form>
             </div>
         </div>
@@ -57,33 +58,44 @@ if(isset($_POST['search']))
                         <th>ID</th>
                         <th>Bed Name</th>
                         <th>Rate per Day</th>
+                        <th>Bed Type</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                        if(isset($query) && mysqli_num_rows($query) > 0)
-                        {
-                            foreach($query as $items){
-                    ?>
-                    <tr>
-                        <td><?= $items['bedId'] ?></td>
-                        <td><?=  $items['bedName']?></td>
-                        <td><?=  $items['ratePerDay']?></td>
-                        <td><?=  $items['bedType']?></td>
-                    </tr>
+                <?php
+                            if(isset($_POST['search']))
+                                {
+                                    $filterValues = $_POST['search'];
+                                    $query = $db->filterPatient($filterValues);
+                                    $count = $query->rowCount();
+                                    if($count > 0)
+                                        {
+                                            foreach($query as $items){
+                                                 ?>
+                                                <tr>
+                                                    <td><?= $items['bedId'] ?></td>
+                                                    <td><?=  $items['bedName']?></td>
+                                                    <td><?=  $items['ratePerDay']?></td>
+                                                    <td><?=  $items['bedType']?></td>
+                                               
+                            
+                                                </tr>
 
-                    <?php
-                            }
-                        }
-                        else
-                        {
-                            ?>
-                            <tr>
-                                <td colspan="4">No Record Found</td>
-                            </tr>
-                            <?php
-                        }
-                    ?>
+                                                <?php
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ?>
+                                            <tr>
+                                                    <td colspan="4">No Record Found</td>
+                            
+                                                </tr>
+                                            <?php
+
+                                        }
+                                }
+                        ?>
                 </tbody>
             </table>
         </div>   

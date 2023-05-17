@@ -1,19 +1,16 @@
 <?php
 require_once '../ORM.php';
+$db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
 
-$db = new MyOrm();
 
 if(isset($_POST["input"]) && $_POST["input"] == "1"){
     $name = $_POST["doctorName"];
     $addr = $_POST["doctorAddress"];
     $phone = $_POST["doctorPhone"];
 
-    $success = $db->insertDoctor($name, $addr, $phone);
+    $db->insertDoctor($name, $addr, $phone);
 
-    if($success == 1)
-        echo 'SUCCESS INSERT';
-    else
-        echo 'wrong INSERT';
+
 
 } else if(isset($_POST["input"]) && $_POST["input"] == "2"){
     $doctorId = $_POST['doctorId'];
@@ -22,7 +19,7 @@ if(isset($_POST["input"]) && $_POST["input"] == "1"){
     $phone = $_POST["doctorPhone"];
 
     $query1 = $db->findDoctor($doctorId);
-    $row = mysqli_fetch_assoc($query1);
+    $row = $query1->fetch();
 
     if (empty($name)){
         $name = $row['doctorName'];
@@ -36,22 +33,16 @@ if(isset($_POST["input"]) && $_POST["input"] == "1"){
         $phone = $row['doctorPhone'];
     }
     $db->resetQuery();
-    $success = $db->updateDoctor($doctorId, $name, $addr, $phone);
+    $db->updateDoctor($doctorId, $name, $addr, $phone);
 
-    if($success == 1)
-        echo 'SUCCESS update';
-    else
-        echo 'wrong update';
+
 
 } else if(isset($_POST["input"]) && $_POST["input"] == "0"){
     $doctorId = $_POST['doctorId'];
 
-    $success = $db->deleteDoctor($doctorId);
+    $db->deleteDoctor($doctorId);
 
-    if($success == 1)
-        echo 'SUCCESS Delete';
-    else
-        echo 'wrong Delete';
+
 }
 header("location: doctorList.php");
 exit();    
