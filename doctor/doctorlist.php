@@ -1,7 +1,7 @@
 <?php
 require_once '../ORM.php';
 
-$db = new MyOrm();
+$db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
 ?>
 <html lang="en">
 <head>
@@ -68,7 +68,8 @@ $db = new MyOrm();
                             {
                                 $filterValues = $_POST['search'];
                                 $query = $db->filterDoctor($filterValues);
-                                if(mysqli_num_rows($query) > 0)
+                                $count = $query->rowCount();
+                                if($count > 0)
                                 {
                                     foreach($query as $items){
                         ?>

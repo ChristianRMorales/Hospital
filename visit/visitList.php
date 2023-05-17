@@ -1,7 +1,7 @@
 <?php
 require_once '../ORM.php';
 
-$db = new MyOrm();
+$db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
 ?>
 <html lang="en">
 <head>
@@ -71,28 +71,28 @@ $db = new MyOrm();
                                 {
                                     $filterValues = $_POST['search'];
                                     $query = $db->filterVisit($filterValues);
-                                    
-                                    if(mysqli_num_rows($query) > 0)
+                                    $count = $query->rowCount();
+                                    if($count > 0)
                                         {   
                                            
         
                                             foreach($query as $items){
-                                                $patient = $items['patientId'];
-                                                $doctor = $items['doctorId'];
-                                                $bedId = $items['bedId'];
+                                                $patient = (string)$items['patientId'];
+                                                $doctor = (string)$items['doctorId'];
+                                                $bedId = (string)$items['bedId'];
                                                 
                                                 $db->resetQuery();
 
                                                 $query1 = $db->findPatient($patient);
-                                                $patientName = mysqli_fetch_assoc($query1);
+                                                $patientName = $query1->fetch();
                                                 $db->resetQuery();
 
                                                 $query2 = $db->findDoctor($doctor);
-                                                $doctorName = mysqli_fetch_assoc($query2);
+                                                $doctorName = $query2->fetch();;
                                                 $db->resetQuery();
 
                                                 $query3 = $db->findBed($bedId);
-                                                $bedName = mysqli_fetch_assoc($query3);
+                                                $bedName = $query3->fetch();
 
                                                 
                                                  ?>

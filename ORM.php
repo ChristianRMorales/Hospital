@@ -11,15 +11,16 @@ class MyOrm {
     private $pwd = "";
     private $dbName = "hospital";
 
-    protected function connectSQLI(){
-        $mysqli = new mysqli($this->host,$this->user,$this->pwd,$this->dbName);
-
-        return $mysqli;
+    public function __construct(string $dbDriver, string $userName, string $passWord, bool $verbose = false) {
+        try {
+            $this->connection = new PDO($dbDriver, $userName, $passWord);
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        } catch(PDOException $e) {
+            echo 'Errors encountered. ' .$e->getMessage();
+        }   
     }
 
-    public function establishDatabaseConnection() {
-        return $this->connectSQLI();
-    }
     
  
 
@@ -80,6 +81,7 @@ class MyOrm {
     
     public function isEqualTo(string $variable): MyOrm {
         $this->dbString .= ' = ' . $variable;
+
         return $this;
     }
 
@@ -150,9 +152,9 @@ class MyOrm {
                     ->sc()
                     ->showQuery();
 
-        $query_run = $this->connectSQLI()->query($sql);
+        $stmt = $this->connection->query($sql);
      
-        return $query_run;
+        return $stmt;
     }
 
 
@@ -165,9 +167,10 @@ class MyOrm {
                     ->sc()
                     ->showQuery();
 
-        $stmt = $this->connectSQLI()->query($sql);
+        $stmt = $this->connection->query($sql);
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return 1;
+ 
         }
 
     public function deletePatient(string $patientId){
@@ -179,9 +182,10 @@ class MyOrm {
                        ->sc()
                        ->showQuery();
 
-        $stmt = $this->connectSQLI()->query($sql);
+        $stmt = $this->connection->query($sql);
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return 1;
+ 
     }
           
     public function updatePatient(string $patientId, string $patientName, string $patientAddress, string $patientBirth, string $patientPhone, string $emergencyContact, string $patientDateRegistered ){
@@ -194,24 +198,26 @@ class MyOrm {
                     ->showQuery();
                     
 
-        $stmt = $this->connectSQLI()->query($sql);
+        $stmt = $this->connection->query($sql);
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return 1;
         }
 
     public function filterPatient(string $filterValues){
 
-        $sqlNew = $this->select()
+        $sql = $this->select()
                        ->from('patient')
                        ->where("CONCAT(patientId, patientName, patientDateRegistered)")
                        ->isLike($filterValues)
                        ->sc()
                        ->showQuery();
 
-        print($sqlNew); 
-        $query_run = $this->connectSQLI()->query($sqlNew);
+        $stmt = $this->connection->query($sql);
+        
 
-        return $query_run;
+       
+
+        return $stmt;
     }
 
 
@@ -263,36 +269,36 @@ class MyOrm {
                     ->showQuery();
 
     
-        $query_run = $this->connectSQLI()->query($sqlNew);
+  
+        $query_run = $this->connection->query($sqlNew);
 
 
-
-        if(mysqli_num_rows($query_run) <= 0){
+        if($query_run->rowCount() <= 0){
             $this->resetQuery();
 
             $filteredPatient = $this->filterPatient($filterValues);
-            $row = mysqli_fetch_assoc($filteredPatient);
-
-            if(mysqli_num_rows($filteredPatient) <= 0){
+            $row = $filteredPatient->fetch();
+  
+            if($filteredPatient->rowCount() <= 0){
                 $this->resetQuery();
 
                 $filteredBed = $this->filterBed($filterValues);
-                $row1 = mysqli_fetch_assoc($filteredBed);
+                $row1 = $filteredBed->fetch();
 
-                if(mysqli_num_rows($filteredBed) <= 0){
+                if($filteredBed->rowCount() <= 0){
                     $this->resetQuery();
 
                     $filteredDoctor = $this->filterDoctor($filterValues);
-                    $row2 = mysqli_fetch_assoc($filteredDoctor);
+                    $row2 = $filteredDoctor->fetch();
 
-                    if(mysqli_num_rows($filteredDoctor) <= 0){
+                    if($filteredDoctor->rowCount() <= 0){
                         return $query_run;
                     }
 
-                    $filterValue3 = $row2['doctorId'];
+                    $filterValue3 = (string)$row2['doctorId'];
+
                     $this->resetQuery();
 
-                    $sql4 = "SELECT * FROM visit WHERE doctorId = '".$filterValue3."' ";
 
                     $sql4 = $this->select()
                                  ->from('visit')
@@ -301,15 +307,15 @@ class MyOrm {
                                  ->sc()
                                  ->showQuery();
 
-                     $query_run4 = $this->connectSQLI()->query($sql4);
+                     $query_run4 = $this->connection->query($sql4);
     
                     return $query_run4;
                 }
 
-                $filterValue2 = $row1['bedId'];
+                $filterValue2 = (string)$row1['bedId'];
+           
                 $this->resetQuery();
 
-                $sql3 = "SELECT * FROM visit WHERE bedId = '".$filterValue2."' ";
 
                 $sql3 = $this->select()
                                  ->from('visit')
@@ -318,7 +324,7 @@ class MyOrm {
                                  ->sc()
                                  ->showQuery();
 
-                $query_run3 = $this->connectSQLI()->query($sql3);
+                $query_run3 = $this->connection->query($sql3); 
     
        
     
@@ -327,10 +333,10 @@ class MyOrm {
                 
                 
             
-                $filterValue1 = $row['patientId'];
+                $filterValue1 = (string)$row['patientId'];
+            
+                
                 $this->resetQuery();
-
-                $sql2 = "SELECT * FROM visit WHERE patientId = '".$filterValue1."' ";
 
                 $sql2 = $this->select()
                                  ->from('visit')
@@ -338,8 +344,8 @@ class MyOrm {
                                  ->isEqualTo($filterValue1)
                                  ->sc()
                                  ->showQuery();
-             
-                $query_run2 = $this->connectSQLI()->query($sql2);                
+        
+                $query_run2 = $this->connection->query($sql2);                
     
                 return $query_run2;
          
@@ -356,9 +362,9 @@ class MyOrm {
         ->sc()
         ->showQuery();
 
-$query_run = $this->connectSQLI()->query($sql);
+        $query_run = $this->connection->query($sql);
 
-return $query_run;
+    return $query_run;
     }
  
     public function insertVisit(string $patientId, string $patientType, string $doctorId, string $bedId, string $dateOfVisitt, string $dateOfDischarge,  string $symptoms, string $disease, string $treatment ){
@@ -368,10 +374,8 @@ return $query_run;
                     ->values("(0 ,'".$patientId."','".$patientType."','".$doctorId."','". $bedId ."','". $dateOfVisitt ."','"  . $dateOfDischarge . "','"  .$symptoms."','"  .$disease."','"  .$treatment. "')")
                     ->sc()
                     ->showQuery();
-        print($sql);
-        $stmt = $this->connectSQLI()->query($sql);
-
-        return 1;
+        $stmt = $this->connection->query($sql);
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
     
@@ -383,8 +387,8 @@ return $query_run;
         ->sc()
         ->showQuery();
 
-$stmt = $this->connectSQLI()->query($sql);
-        return 1;
+        $stmt = $this->connection->query($sql);
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
     
@@ -397,10 +401,8 @@ $stmt = $this->connectSQLI()->query($sql);
                     ->sc()
                     ->showQuery();
                     
-        print($sql);
-        $stmt = $this->connectSQLI()->query($sql);
-
-        return 1;
+        $stmt = $this->connection->query($sql);
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     
 
@@ -442,9 +444,8 @@ $stmt = $this->connectSQLI()->query($sql);
                     ->sc()
                     ->showQuery();
 
-        $stmt = $this->connectSQLI()->query($sql);
-
-        return 1;
+        $stmt = $this->connection->query($sql);
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
     // update a doctor's information
@@ -458,8 +459,8 @@ $stmt = $this->connectSQLI()->query($sql);
                     ->showQuery();
                     
 
-        $stmt = $this->connectSQLI()->query($sql);
-        return 1;
+        $stmt = $this->connection->query($sql);
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
     
@@ -473,7 +474,8 @@ $stmt = $this->connectSQLI()->query($sql);
         ->sc()
         ->showQuery();
 
-$stmt = $this->connectSQLI()->query($sql);
+    $stmt = $this->connection->query($sql);
+    $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
     // find a doctor by id
@@ -486,15 +488,15 @@ $stmt = $this->connectSQLI()->query($sql);
                     ->sc()
                     ->showQuery();
 
-            $query_run = $this->connectSQLI()->query($sql);
+        $stmt = $this->connection->query($sql);
 
-        return $query_run;
+        return $stmt;
     }
 
     //goods
     public function filterDoctor(string $filterValues){
 
-        $sqlNew = $this->select()
+        $sql = $this->select()
                     ->from('doctor')
                     ->where('CONCAT(doctorId, doctorName, doctorAddress, doctorPhone)')
                     ->isLike($filterValues)
@@ -502,9 +504,9 @@ $stmt = $this->connectSQLI()->query($sql);
                     ->showQuery();
 
     
-     $query_run = $this->connectSQLI()->query($sqlNew);
+        $stmt = $this->connection->query($sql);
     
-        return $query_run;
+        return $stmt;
     }
 
 
@@ -543,7 +545,7 @@ $stmt = $this->connectSQLI()->query($sql);
 
     public function filterBed(string $filterValues){
                     
-     $sqlNew = $this->select()
+     $sql = $this->select()
                     ->from('bed')
                     ->where('CONCAT(bedId, bedName, ratePerday, bedtype)')
                     ->isLike($filterValues)
@@ -551,9 +553,9 @@ $stmt = $this->connectSQLI()->query($sql);
                     ->showQuery();
 
     
-     $query_run = $this->connectSQLI()->query($sqlNew);
-
-     return $query_run;
+                    $stmt = $this->connection->query($sql);
+    
+                    return $stmt;
 
     }
 
@@ -566,9 +568,8 @@ $stmt = $this->connectSQLI()->query($sql);
                     ->sc()
                     ->showQuery();
 
-        $stmt = $this->connectSQLI()->query($sql);
-
-        return 1;
+        $stmt = $this->connection->query($sql);
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
     // update a doctor's information
@@ -583,9 +584,8 @@ $stmt = $this->connectSQLI()->query($sql);
         ->sc()
         ->showQuery();
         
-print($sql);
-$stmt = $this->connectSQLI()->query($sql);
-        return 1;
+        $stmt = $this->connection->query($sql);
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
     
@@ -599,7 +599,8 @@ $stmt = $this->connectSQLI()->query($sql);
         ->sc()
         ->showQuery();
 
-$stmt = $this->connectSQLI()->query($sql);
+    $stmt = $this->connection->query($sql);
+    $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
     // find a doctor by id
@@ -612,9 +613,9 @@ $stmt = $this->connectSQLI()->query($sql);
                 ->sc()
                 ->showQuery();
 
-            $query_run = $this->connectSQLI()->query($sql);
-
-        return $query_run;
+                $stmt = $this->connection->query($sql);
+    
+                return $stmt;;
     }
     
     }
