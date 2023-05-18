@@ -42,10 +42,10 @@
                 <div class="form">
                     <h2>Login Here</h2><br>
                    
-                    <form action="user/user.php" method="post"  id="login" >
+                    <form action="user/userLogin.php" method="post"  id="login" >
 
-                    <input type="username" name="logUser" placeholder="Enter Username Here">
-                    <input type="password" name="logPass" placeholder="Enter Password Here">
+                    <input type="username" name="logUser" placeholder="Enter Username Here" required>
+                    <input type="password" name="logPass" placeholder="Enter Password Here" required>
                     <input type="hidden" name="input" value = "1" required>
                     </form>
                     <button class="btnn" form="login" name="submit" value="submit">Login</button>

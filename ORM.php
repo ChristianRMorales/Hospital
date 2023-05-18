@@ -6,10 +6,6 @@ class MyOrm {
     private $dbString = '';
     private $connection = null;
 
-    private $host = "localhost";
-    private $user = "root";
-    private $pwd = "";
-    private $dbName = "hospital";
 
     public function __construct(string $dbDriver, string $userName, string $passWord, bool $verbose = false) {
         try {
@@ -18,9 +14,15 @@ class MyOrm {
             $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch(PDOException $e) {
             echo 'Errors encountered. ' .$e->getMessage();
+            die();
         }   
     }
 
+
+    public function connect(){
+
+        return $this->connection;
+    }
     
  
 
@@ -119,17 +121,6 @@ class MyOrm {
 
 
 
-    public function isValidId($id){
-        $result = null;
-
-        if(!preg_match("/^[a-zA-Z0-100]*$/", $id)){
-            $result = false;
-        }else{
-            $result = true;
-        }
-
-        return $result;
-    }
 
 
 

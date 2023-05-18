@@ -26,7 +26,8 @@ if(isset($_POST['search']))
 
             <div class="menu">
                 <ul>
-                    <li><a href="../Index.html"><-HOME</a></li>
+                <li><a href="../Index.php">HOME</a></li>
+
                     <li class="active">SEARCH BED</li>
                     <li><a href="deleteBed.html">DELETE BED</a></li>
                     <li><a href="addBed.html">ADD BED</a></li>

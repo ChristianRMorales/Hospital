@@ -19,7 +19,8 @@ $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
 
             <div class="menu">
                 <ul>
-                    <li><a href="../Index.html">HOME</a></li>
+                <li><a href="../Index.php">HOME</a></li>
+
                     <li class="active">SEARCH DOCTOR</li>
                     <li><a href="deleteDoctor.html">DELETE</a></li>
                     <li><a href="addDoctor.html">ADD</a></li>

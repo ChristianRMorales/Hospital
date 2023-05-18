@@ -13,7 +13,8 @@
         </div>
         <div class="menu">
           <ul>
-            <li><a href="../Index.html">HOME</a></li>
+            <li><a href="../Index.php">HOME</a></li>
+
             <li><a href="doctorList.php">SEARCH DOCTOR</a></li>
             <li class="active">DELETE</li>
             <li><a href="addDoctor.html">ADD</a></li>
@@ -25,7 +26,7 @@
         <h1><span>Doctor Palooza</span> <br>Delete Doctor Record</h1>
         <p class="par">Delete a Doctor record from the system.<br> Are you sure you want to delete the following Doctor?</p>
         <div class=" form3 ">
-          <form action="doctor.php" method="post" id="delDoctor">
+          <form action="deleteD.php" method="post" id="delDoctor">
             <label for="doctorId">Doctor ID:</label>
             <input type="text" id="doctorId" name="doctorId" required>
             <input type="hidden" name="input" value="0">

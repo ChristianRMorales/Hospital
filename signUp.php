@@ -38,7 +38,7 @@
                 <div class="form">
                     <h2>Sign UP Here</h2><br>
                    
-                    <form action="user.php" method="post"  id="signUp" >
+                    <form action="user/userSignUp.php" method="post"  id="signUp" >
 
                     <input type="username" name="signUpUser" placeholder="Enter Username Here" required>
                     <input type="password" name="signUpPass" placeholder="Enter Password Here" required>
@@ -47,7 +47,7 @@
                     <input type="hidden" name="input" value = "2" required>
                   
                     </form>
-                    <button class="btnn" form="signUp" value="submit">SignUp</button>
+                    <button class="btnn" form="signUp" name="submit" value="submit">SignUp</button>
 
                >
 
