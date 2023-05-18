@@ -1,7 +1,7 @@
 <?php
-require_once '../ORM.php';
+require_once 'visitQuery.php';
 
-$db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
+$vis = new visitClass('mysql:host=localhost;dbname=hospital','root', '', true);
 ?>
 <html lang="en">
 <head>
@@ -71,7 +71,7 @@ $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
                             if(isset($_POST['search']))
                                 {
                                     $filterValues = $_POST['search'];
-                                    $query = $db->filterVisit($filterValues);
+                                    $query = $vis->filterVisit($filterValues);
                                     $count = $query->rowCount();
                                     if($count > 0)
                                         {   
@@ -82,17 +82,17 @@ $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
                                                 $doctor = (string)$items['doctorId'];
                                                 $bedId = (string)$items['bedId'];
                                                 
-                                                $db->resetQuery();
+                                                $vis->resetQuery();
 
-                                                $query1 = $db->findPatient($patient);
+                                                $query1 = $vis->callPat()->findPatient($patient);
                                                 $patientName = $query1->fetch();
-                                                $db->resetQuery();
+                                                $vis->resetQuery();
 
-                                                $query2 = $db->findDoctor($doctor);
+                                                $query2 = $vis->callDoc()->findDoctor($doctor);
                                                 $doctorName = $query2->fetch();;
-                                                $db->resetQuery();
+                                                $vis->resetQuery();
 
-                                                $query3 = $db->findBed($bedId);
+                                                $query3 = $vis->callBed()->findBed($bedId);
                                                 $bedName = $query3->fetch();
 
                                                 

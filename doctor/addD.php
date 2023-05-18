@@ -12,12 +12,33 @@ if(isset($_POST['submit'])){
     $addr = $_POST["doctorAddress"];
     $phone = $_POST["doctorPhone"];
     
-    if ($errorHand->isEmpty($name)){
-        header("location: addDoctor.html?error=emptyInput". $name);
+    if ($errorHand->invalidUId($name)){
+        header("location: addDoctor.html?error=invalidName=". $name);
         exit();    
     }
 
+    $doctorSqlN = $doc->filterDoctor($name);
+    $doctor = $doctorSqlN->fetch();
+    $doctorName = $doctor['doctorName'];
 
+ 
+
+    if($errorHand->pwdMatch(strtoupper($name), strtoupper($doctorName))){
+        header("location: addDoctor.html?error=nameAlreadyExist". $name);
+        exit(); 
+    }
+    $doc->resetQuery();
+
+    $doctorSqlP = $doc->filterDoctor($name);
+    $doctorP = $doctorSqlP->fetch();
+    $doctorPhone = $doctor['doctorPhone'];
+
+    if($errorHand->pwdMatch($phone, $doctorPhone)){
+        header("location: addDoctor.html?error=phoneAlreadyExist". $phone);
+        exit(); 
+    }
+
+    $doc->resetQuery();
 
     $doc->insertDoctor($name, $addr, $phone);
 

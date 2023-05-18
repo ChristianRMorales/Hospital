@@ -1,7 +1,7 @@
 <?php
-require_once '../ORM.php';
+require_once 'patientQuery.php';
 
-$db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
+$pat = new patientClass('mysql:host=localhost;dbname=hospital','root', '', true);
 ?>
 <html lang="en">
 <head>
@@ -68,7 +68,7 @@ $db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
                             if(isset($_POST['search']))
                                 {
                                     $filterValues = $_POST['search'];
-                                    $query = $db->filterPatient($filterValues);
+                                    $query = $pat->filterPatient($filterValues);
                                     $count = $query->rowCount();
                                     if($count > 0)
                                         {

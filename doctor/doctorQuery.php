@@ -18,31 +18,46 @@ public function insertDoctor(string $doctorName, string $doctorAddress,string $d
 // update a doctor's information
 
 public function updateDoctor(string $doctorId, string $doctorName, string $doctorAddress, string $doctorPhone){
-    $sql = $this->update('doctor')
-                ->set("doctorName = '". $doctorName ."', doctorAddress = '". $doctorAddress ."', doctorPhone = '". $doctorPhone ."'")
-                ->where('doctorId')
-                ->isEqualTo($doctorId)
-                ->sc()
-                ->showQuery();
+   
+
+        try{
+   
+             $sql = $this->update('doctor')
+                         ->set("doctorName = '". $doctorName ."', doctorAddress = '". $doctorAddress ."', doctorPhone = '". $doctorPhone ."'")
+                         ->where('doctorId')
+                         ->isEqualTo($doctorId)
+                         ->sc()
+                         ->showQuery();
                 
 
-    $stmt = $this->connect()->query($sql);
-    $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = $this->connect()->query($sql);
+             $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e) {
+             echo 'Errors encountered. ' .$e->getMessage();
+            die();
     }
+
+}
 
 
 // delete a doctor
 public function deleteDoctor($doctorId)
-{
+{   
+    try{
     $sql = $this->delete()
-    ->from('doctor')
-    ->where('doctorId')
-    ->isEqualTo($doctorId)
-    ->sc()
-    ->showQuery();
+                ->from('doctor')
+                ->where('doctorId')
+                ->isEqualTo($doctorId)
+                ->sc()
+                ->showQuery();
 
- $stmt = $this->connect()->query($sql);
-$stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt = $this->connect()->query($sql);
+    $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }catch(PDOException $e) {
+        header("location: updateDoctor.html?error=invalidId=". $doctorId);
+        exit();    
+    }   
 }
 
 // find a doctor by id
@@ -75,6 +90,9 @@ public function filterDoctor(string $filterValues){
 
     return $stmt;
 }
+
+
+
 }
 
 ?>

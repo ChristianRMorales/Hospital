@@ -13,28 +13,37 @@ if(isset($_POST['submit'])){
     $addr = $_POST["doctorAddress"];
     $phone = $_POST["doctorPhone"];
 
-    $query1 = $doc->findDoctor($doctorId);
-    $row = $query1->fetch();
+    
 
     if ($errorHand->invalidId($doctorId)){
-        header("location: updateDoctor.html?error=invalidId". $doctorId);
+        header("location: updateDoctor.html?error=invalidId=". $doctorId);
         exit();    
     }
 
+    $query1 = $doc->findDoctor($doctorId);
+    $row = $query1->fetch();
+ 
+
     if ($errorHand->invalidUId($name)){
-        header("location: updateDoctor.html?error=invalidUserName". $name);
+        header("location: updateDoctor.html?error=invalidUserName=". $name);
         exit();    
     }
 
     if ($errorHand->invalidUId($addr)){
-        header("location: updateDoctor.html?error=invalidAddress". $addr);
+        header("location: updateDoctor.html?error=invalidAddress=". $addr);
         exit();    
     }
 
     if ($errorHand->isInt($phone)){
-        header("location: updateDoctor.html?error=invalidUserName". $phone);
+        header("location: updateDoctor.html?error=invalidPhone=". $phone);
         exit();    
     }
+
+    if(empty($row)){
+        header("location: updateDoctor.html?error=IdnotFound=". $doctorId);
+        exit();
+   }else{
+    
 
 
     if (empty($name)){
@@ -51,7 +60,7 @@ if(isset($_POST['submit'])){
     $doc->resetQuery();
     $doc->updateDoctor($doctorId, $name, $addr, $phone);
 
-
+}
 
     header("location: doctorlist.php?success=delete");
     exit(); 

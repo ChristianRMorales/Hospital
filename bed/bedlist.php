@@ -1,12 +1,13 @@
 <?php
-require_once '../ORM.php';
+require_once 'bedQuery.php';
 
-$db = new MyOrm('mysql:host=localhost;dbname=hospital','root', '', true);
+
+$bed = new bedClass('mysql:host=localhost;dbname=hospital','root', '', true);
 
 if(isset($_POST['search']))
 {
     $filterValues = $_POST['search'];
-    $query = $db->filterBed($filterValues);
+    $query = $bed->filterBed($filterValues);
 }
 
 ?>
@@ -67,7 +68,7 @@ if(isset($_POST['search']))
                             if(isset($_POST['search']))
                                 {
                                     $filterValues = $_POST['search'];
-                                    $query = $db->filterPatient($filterValues);
+                                    $query = $bed->filterBed($filterValues);
                                     $count = $query->rowCount();
                                     if($count > 0)
                                         {
