@@ -16,7 +16,7 @@ session_start();
     <div class="main">
         <div class="navbar">
             <div class="icon">
-                <h2 class="logo">Patient Palooza</h2>
+                <h2 class="logo">Home Palooza</h2>
             </div>
 
             <div class="menu">

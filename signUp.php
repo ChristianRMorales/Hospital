@@ -5,16 +5,16 @@
 <html lang="en" >
    
 <head>
-    <title>Home | Patient-PALOOZA</title>
+    <title>Home | SIGN UP-PALOOZA</title>
     <link rel="stylesheet" type="text/css" href="css/style.css?v=2" />
-    <link rel="icon" href="1.ico" type="image/x-icon">
+    <link rel="icon" href="css/1.ico" type="image/x-icon">
 </head>
 <body>
 
     <div class="main">
         <div class="navbar">
             <div class="icon">
-                <h2 class="logo">Patient-PALOOZA</h2>
+                <h2 class="logo">SIGN UP-PALOOZA</h2>
             </div>
 
             <div class="menu">
