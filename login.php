@@ -8,23 +8,23 @@
 <html lang="en" >
    
 <head>
-    <title>Home | Patient-PALOOZA</title>
+    <title>Home | LOGIN-PALOOZA</title>
     <link rel="stylesheet" type="text/css" href="css/style.css?v=2" />
-    <link rel="icon" href="1.ico" type="image/x-icon">
+    <link rel="icon" href="css/1.ico" type="image/x-icon">
 </head>
 <body>
 
     <div class="main">
         <div class="navbar">
             <div class="icon">
-                <h2 class="logo">Patient-PALOOZA</h2>
+                <h2 class="logo">LOGIN-PALOOZA</h2>
             </div>
 
             <div class="menu">
                 <ul>
                     <li class="active">HOME</a></li>
-                    <li><a href="http://localhost:8000/about/">ABOUT</a></li>
-                    <li><a href="http://localhost:8000/service/">SERVICE</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="service.html">SERVICE</a></li>
                     <li><a href="http://localhost:8000/contact/">CONTACT</a></li>
                 </ul>
             </div>
@@ -33,9 +33,9 @@
 
         </div> 
         <div class="content">
-            <h1>Click, Rent, Save<br><span>Textbook Rentals</span> <br>Delivered to your door</h1>
-            <p class="par">The ultimate destination for book lovers <br>Enter a world of wonder with Read-iculous, where you'll find a vast collection of enthralling stories
-                <br> a quae totam ipsa illum minus laudantium?</p>
+        <h1>Healing, For Everyone<br><span>Hospital System</span> <br>your health is our wealth</h1>
+            <p class="par">You health services <br> One life is enough, Live life to the fullest in Palooza
+                <br>Carita en scientia</p>
 
                 <button class="cn"><a href="signUp.php">JOIN US</a></button>
 
