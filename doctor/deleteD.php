@@ -1,7 +1,6 @@
 <?php
-require_once 'doctorQuery.php';
-require_once '../errorHandlers.php';
-
+require_once '../clases/doctorQuery.php';
+require_once '../includes/errorHandlers.php';
 
 $errorHand = new err();
 $doc = new doctorClass('mysql:host=localhost;dbname=hospital','root', '', true);

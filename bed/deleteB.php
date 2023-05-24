@@ -1,6 +1,7 @@
 <?php
-require_once 'bedQuery.php';
-require_once '../errorHandlers.php';
+require_once '../classes/bedQuery.php';
+require_once '../includes/errorHandlers.php';
+
 
 
 $errorHand = new err();

@@ -1,7 +1,7 @@
 <?php
-require_once 'userLoginQ.php';
-require_once '../doctor/doctorQuery.php';
-require_once '../errorHandlers.php';
+require_once '../classes/userLoginQ.php';
+require_once '../classes/doctorQuery.php';
+require_once '../includes/errorHandlers.php';
 
 $err = new err();
 $loginSQ = new loginQ('mysql:host=localhost;dbname=hospital','root', '', true);

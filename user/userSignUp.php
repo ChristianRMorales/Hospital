@@ -1,6 +1,6 @@
 <?php
-require_once 'userSignUpQ.php';
-require_once '../errorHandlers.php';
+require_once '../classes/userSignUpQ.php';
+require_once '../includes/errorHandlers.php';
 
 $err = new err();
 $userSQ = new signUpQ('mysql:host=localhost;dbname=hospital','root', '', true);

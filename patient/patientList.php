@@ -1,5 +1,6 @@
 <?php
-require_once 'patientQuery.php';
+require_once '../classes/patientQuery.php';
+
 
 $pat = new patientClass('mysql:host=localhost;dbname=hospital','root', '', true);
 ?>

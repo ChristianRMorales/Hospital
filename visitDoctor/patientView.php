@@ -1,6 +1,6 @@
 <?php
 
-require_once '../visit/visitQuery.php';
+require_once '../classes/visitQuery.php';
 
 $vis = new visitClass('mysql:host=localhost;dbname=hospital','root', '', true);
 

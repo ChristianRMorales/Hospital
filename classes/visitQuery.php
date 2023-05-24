@@ -1,8 +1,8 @@
 <?php
-require_once '../ORM.php';
-require_once '../doctor/doctorQuery.php';
-require_once '../bed/bedQuery.php';
-require_once '../patient/patientQuery.php';
+require_once '../includes/ORM.php';
+require_once '../classes/doctorQuery.php';
+require_once '../classes/bedQuery.php';
+require_once '../classes/patientQuery.php';
 
 
 class visitClass extends MyOrm{

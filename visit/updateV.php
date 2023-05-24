@@ -1,6 +1,6 @@
 <?php
-require_once 'visitQuery.php';
-require_once '../errorHandlers.php';
+require_once '../classes/visitQuery.php';
+require_once '../includes/errorHandlers.php';
 session_start();
 
 $errorHand = new err();

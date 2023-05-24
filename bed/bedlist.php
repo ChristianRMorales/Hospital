@@ -1,5 +1,6 @@
 <?php
-require_once 'bedQuery.php';
+require_once '../classes/bedQuery.php';
+
 
 
 $bed = new bedClass('mysql:host=localhost;dbname=hospital','root', '', true);

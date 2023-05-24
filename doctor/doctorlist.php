@@ -1,5 +1,6 @@
 <?php
-require_once 'doctorQuery.php';
+require_once '../clases/doctorQuery.php';
+
 
 $doc = new doctorClass('mysql:host=localhost;dbname=hospital','root', '', true);
 ?>

@@ -1,6 +1,6 @@
 <?php
-require_once 'patientQuery.php';
-require_once '../errorHandlers.php';
+require_once '../classes/patientQuery.php';
+require_once '../includes/errorHandlers.php';
     
 $errorHand = new err();
 $pat = new patientClass('mysql:host=localhost;dbname=hospital','root', '', true);
