@@ -21,7 +21,7 @@ $pat = new patientClass('mysql:host=localhost;dbname=hospital','root', '', true)
                 <ul>
                 <li><a href="../Index.php">HOME</a></li>
                     <li class="active">SEARCH PATIENT</a></li>
-                    <li><a href="addPatient.html">ADD</a></li>
+                    <li><a href="addPatientVisit.html">ADD</a></li>
                 </ul>
             </div>
             

@@ -12,11 +12,13 @@ if(isset($_POST['submit'])){
     $patientType = $_POST['patientType'];
     $doctorId = $_POST['doctorId'];
     $bedId = $_POST['bedId'];
-    $dateOfVisit = ($_POST['dateOfVisitYear'] . "-" . $_POST['dateOfVisitMonth'] . "-" .$_POST['dateOfVisitDay']);
-    $dateOfDischarge = ($_POST['dateOfDischargeYear'] . "-" . $_POST['dateOfDischargeMonth'] . "-" .$_POST['dateOfDischargeDay']);
+    $dateOfVisit = ($_POST['dateOfVisitDate']);
+    $dateOfDischarge = ($_POST['dateOfDischargeDate']);
     $symptoms = $_POST['symptoms'];
     $disease = $_POST['disease'];
     $treatment = $_POST['treatment'];
+    $completed = $_POST['completed'];
+    $hasBed = $_POST['hasBed'];
 
     if ($errorHand->invalidId($patientId)){
         header("location: addVisit.html?error=invalidPatientId=". $patientId);
@@ -72,16 +74,6 @@ if(isset($_POST['submit'])){
 
 
 
-    if ($errorHand->isInt($_POST['dateOfVisitYear'] . $_POST['dateOfVisitMonth'] .$_POST['dateOfVisitDay'])){
-        header("location: addVisit.html?error=invalidDateOfVisit=".  $dateOfVisit);
-        exit();    
-    }
-
-
-    if ($errorHand->isInt($_POST['dateOfDischargeYear'] . $_POST['dateOfDischargeMonth'] .$_POST['dateOfDischargeDay'])){
-        header("location: addVisit.html?error=invalidDateOfDischarge=". $dateOfDischarge);
-        exit();    
-    }
 
 
 
@@ -109,14 +101,19 @@ if(isset($_POST['submit'])){
 
 
 
-    if(strtoupper($patientType) == "IN"){
-
+    if($patientType == 1){
+        $completed = 0;
+        $hasBed = 0;
     }else {
+        $dateOfDischarge = $dateOfVisit;
         $query3 = $vis->callBed()->filterBed("NOBED");
         $bed = $query3->fetch();
 
         $bedId = $bed['bedId'];
         $vis->resetQuery();
+
+        $completed = 1;
+        $hasBed = 2;
     }
 
     $vis->insertVisit( $patientId, $patientType, $doctorId, $bedId, $dateOfVisit, $dateOfDischarge,  $symptoms, $disease, $treatment, $completed, $hasBed);

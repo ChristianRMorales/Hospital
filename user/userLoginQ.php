@@ -39,6 +39,7 @@ class loginQ extends MyOrm{
             session_start();
             $_SESSION["userId"] = $user[0]["userId"];
             $_SESSION["userN"] = $user[0]["userName"];
+            $_SESSION["isDoctor?"] = false;
             header("location: ../index.php?eror=none");
             exit();
         }

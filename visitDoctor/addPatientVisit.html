@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Register | Patient Palooza</title>
+    <link rel="icon" href="1.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../css/style.css?v=2" />
+    <link rel="icon" href="../css/1.ico" type="image/x-icon">
+  </head>
+  <body>
+    <div class="main">
+        <div class="navbar">
+            <div class="icon">
+                <h2 class="logo">Patient Palooza</h2>
+            </div>
+
+            <div class="menu">
+                <ul>
+                  <li><a href="../Index.php">HOME</a></li>
+                  <li><a href="dPatientList.php">SEARCH PATIENT</a></li>
+                  <li class="active">ADD</a></li>
+
+
+                </ul>
+            </div>
+
+           
+        </div> 
+    <div class="content">
+
+        <h1><span>Add Patient</span> <br>Create patient</h1>
+        <p class="par">Input Patient Name <br>Credentials and Click Add patient</br></p>
+            <br> Caritas en scientia</p>
+
+      <div class=" form1 ">
+      <form action="../patient/addP.php" method="post"  id="addPatient">
+
+
+          <label for="patientName">Name:</label>
+          <input type="text" id="patientName" name="patientName"required>
+      
+   
+          <label for="Address">Address:</label>
+          <input type="text" id="Address" name="patientAddr"required>
+   
+    
+          <label for="birth">Birthdate:</label>
+      
+           
+          <input type="date" id="birth" name="patientBirthDate" required>
+           
+
+          <label for="phone">Phone number:</label>
+          <input type="text" id="phone" name="patientPhone" >
+    
+          <label for="emergencyContact">Emergency Contact number:</label>
+          <input type="text" id="emergencyContact" name="patientEmergencyContact" required>
+
+          <label for="dateRegistered">Date Today:</label>
+          <input type="date" id="dateRegistered" name="patientRegisteredDate"required>
+            
+          
+
+  
+    
+          <input type="hidden" name="input" value="1">
+      </form>
+    
+      <button class="btnn" form="addPatient" name="submit" value="submit">ADD PATIENT</button>
+    </div>
+
+    </div>
+    </div>
+  </body>
+</html>

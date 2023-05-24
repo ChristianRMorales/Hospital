@@ -11,9 +11,15 @@ if(isset($_POST['submit'])){
     $name = $_POST["doctorName"];
     $addr = $_POST["doctorAddress"];
     $phone = $_POST["doctorPhone"];
-    
+    $password = $_POST["doctorPass"];
+
     if ($errorHand->invalidUId($name)){
         header("location: addDoctor.html?error=invalidName=". $name);
+        exit();    
+    }
+
+    if ($errorHand->invalidUId($password)){
+        header("location: addDoctor.html?error=invalidpassword=". $password);
         exit();    
     }
 
@@ -40,7 +46,7 @@ if(isset($_POST['submit'])){
 
     $doc->resetQuery();
 
-    $doc->insertDoctor($name, $addr, $phone);
+    $doc->insertDoctor($name, $addr, $phone, $password);
 
     header("location: doctorlist.php?success=insert");
     exit(); 

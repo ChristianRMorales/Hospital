@@ -10,17 +10,13 @@ if(isset($_POST['submit'])){
     $patientId = $_POST['patientId'];
     $name = $_POST["patientName"];
     $addr = $_POST["patientAddr"];
-    $birthYear = $_POST["patientBirthYear"];
-    $birthMonth = $_POST["patientBirthMonth"];
-    $birthDay = $_POST["patientBirthDay"];
+
+    $birthDate = $_POST["patientBirthDate"];
     $phone = $_POST["patientPhone"];
     $eContact = $_POST["patientEmergencyContact"];
-    $pRegisteredYear = $_POST["patientRegisteredYear"];
-    $pRegisteredMonth = $_POST["patientRegisteredMonth"];
-    $pRegisteredDay = $_POST["patientRegisteredDay"];
 
-    $birthDate = ($birthYear ."-". $birthMonth ."-". $birthDay);
-    $pRegisteredDate = ($pRegisteredYear ."-".  $pRegisteredMonth ."-". $pRegisteredDay) ;
+    $pRegisteredDate = $_POST["patientRegisteredDate"];
+
 
 
 
@@ -78,13 +74,7 @@ if(isset($_POST['submit'])){
 
 
 
-        if (empty($birthYear)){
-            $birthDate = $row['patientBirth'];
-
-        }else if (empty($birthMonth)){
-            $birthDate = $row['patientBirth'];
-
-        }else if (empty($birthDay)){
+        if (empty($birthDate)){
             $birthDate = $row['patientBirth'];
 
         }
@@ -101,11 +91,8 @@ if(isset($_POST['submit'])){
 
 
 
-        if (empty($pRegisteredYear)){
-            $pRegisteredDate = $row['patientDateRegistered'];
-        }else if (empty($pRegisteredMonth)){
-            $pRegisteredDate = $row['patientDateRegistered'];
-        }else if (empty($pRegisteredDay)){
+        if (empty($pRegisteredDate)){
+            
             $pRegisteredDate = $row['patientDateRegistered'];
         }
         $pat->resetQuery();

@@ -69,16 +69,7 @@ if(isset($_POST['submit'])){
     }
 
 
-    if ($errorHand->isInt($_POST['dateOfVisitYear'] . $_POST['dateOfVisitMonth'] .$_POST['dateOfVisitDay'])){
-        header("location: updateVisitBed.php?error=invalidDateOfVisit=".  $dateOfVisit);
-        exit();    
-    }
-
-
-    if ($errorHand->isInt($_POST['dateOfDischargeYear'] . $_POST['dateOfDischargeMonth'] .$_POST['dateOfDischargeDay'])){
-        header("location: updateVisitBed.php?error=invalidDateOfDischarge=". $dateOfDischarge);
-        exit();    
-    }
+  
 
 
 
@@ -183,7 +174,7 @@ if(isset($_POST['submit'])){
     
 
 
-header("location: visitList.php");
-exit();    
+    header("location: dPatientList.php");
+    exit();     
 }   
 ?>

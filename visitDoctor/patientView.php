@@ -117,8 +117,9 @@ $pending = null;
                                                     }?></td>
                                                     <td><?php if($items['completed'] == 1){
                                                         echo " COMPLETED ";
-                                                    }else{
-                                                        echo " PENDING ";
+                                                    }else{?>
+                                                        <a href=""><form action="patientDischarge.php" method="POST" id="patientDischarge"><input type="hidden" name="visitId" value="<?= $items['visitId'] ?>"><button class="btn-link" name="submit">Pending</button></form></a>
+                                                        <?php
                                                         $pending = 1;
                                                     }?></td>
                             

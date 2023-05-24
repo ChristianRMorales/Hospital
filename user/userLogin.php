@@ -1,17 +1,19 @@
 <?php
 require_once 'userLoginQ.php';
+require_once '../doctor/doctorQuery.php';
 require_once '../errorHandlers.php';
 
 $err = new err();
 $loginSQ = new loginQ('mysql:host=localhost;dbname=hospital','root', '', true);
+$loginDoctorSQ = new doctorClass('mysql:host=localhost;dbname=hospital','root', '', true);
 
 if(isset($_POST['submit'])){
 
-     if(isset($_POST['input'])){
+
         //signup
         $userN = $_POST['logUser'];
         $pass = $_POST['logPass'];
-       
+        $loginValue = $_POST['loginValue'];
 
 
         if($err->invalidUId($userN)){
@@ -19,16 +21,20 @@ if(isset($_POST['submit'])){
             exit();   
         }
 
+        if($loginValue == 0){
 
         $loginSQ->getUser($userN, $pass);
-
-
+        }else{
+       
+        $loginDoctorSQ->getUser($userN, $pass);
+        }
+  
 
 
 
         header("location: ../Index.php?error=none");
         exit(); 
-    }
+    
 
 
 

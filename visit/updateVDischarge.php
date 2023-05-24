@@ -1,7 +1,7 @@
 <?php
 require_once 'visitQuery.php';
 require_once '../errorHandlers.php';
-session_start();
+
 
 $errorHand = new err();
 $vis = new visitClass('mysql:host=localhost;dbname=hospital','root', '', true);
@@ -9,36 +9,26 @@ $vis = new visitClass('mysql:host=localhost;dbname=hospital','root', '', true);
 if(isset($_POST['submit'])){
 
     $visitId = $_POST['visitId'];
-    $patientId = $_POST['patientId'];
-    $patientType = $_POST['patientType'];
-    $doctorId = $_POST['doctorId'];
-    $bedId = $_POST['bedId'];
-    $dateOfVisit = ($_POST['dateOfVisitDate']);
     $dateOfDischarge = ($_POST['dateOfDischargeDate']);
-    $symptoms = $_POST['symptoms'];
-    $disease = $_POST['disease'];
-    $treatment = $_POST['treatment'];
     $completed = $_POST['completed'];
-    $hasBed = $_POST['hasBed'];
-
+   
 
     if ($errorHand->invalidId($patientId)){
-        header("location: updateVisit.html?error=invalidPatientId=". $patientId);
+        header("location: updateVisitBed.php?error=invalidPatientId=". $patientId);
         exit();    
-    }
-
+    } 
     if ($errorHand->invalidUId($patientType)){
-        header("location: updateVisit.html?error=invalidPatientType=". $patientType);
+        header("location: updateVisitBed.php?error=invalidPatientType=". $patientType);
         exit();    
     }
 
     if ($errorHand->invalidId($doctorId)){
-        header("location: updateVisit.html?error=invalidDoctorId=". $doctortId);
+        header("location: updateVisitBed.php?error=invalidDoctorId=". $doctortId);
         exit();    
     }
 
     if ($errorHand->invalidId($bedId)){
-        header("location: updateVisit.html?error=invalidBedId=". $bedtId);
+        header("location: updateVisitBed.php?error=invalidBedId=". $bedtId);
         exit();    
     }
 
@@ -47,7 +37,7 @@ if(isset($_POST['submit'])){
     $query1 = $vis->callPat()->findPatient($patientId);
     $row1 = $query1->fetch();
     if(empty($row1)){
-        header("location: updateVisit.html?error=invalidpatientIdDoesNotExist=". $patienttId);
+        header("location: updateVisitBed.php?error=invalidpatientIdDoesNotExist=". $patienttId);
         exit();
     }
 
@@ -59,7 +49,7 @@ if(isset($_POST['submit'])){
     $row2 = $query2->fetch();
 
     if(empty($row2)){
-        header("location: updateVisit.html?error=invalidDoctorIdDoesNotExist=". $doctorId);
+        header("location: updateVisitBed.php?error=invalidDoctorIdDoesNotExist=". $doctorId);
         exit();
     }
 
@@ -71,7 +61,7 @@ if(isset($_POST['submit'])){
     $row3 = $query3->fetch();
 
     if(empty($row3)){
-        header("location: updateVisit.html?error=invalidbedIdDoesNotExist=". $bedId);
+        header("location: updateVisitBed.php?error=invalidbedIdDoesNotExist=". $bedId);
         exit();
     }
 
@@ -79,26 +69,25 @@ if(isset($_POST['submit'])){
     }
 
 
-
-
+  
 
 
 
     if ($errorHand->invalidUId($symptoms)){
-        header("location: updateVisit.html?error=invalidSymptoms=".  $symptoms);
+        header("location: updateVisitBed.php?error=invalidSymptoms=".  $symptoms);
         exit();    
     }
 
 
 
     if ($errorHand->invalidUId($disease)){
-        header("location: updateVisit.html?error=invalidDisease=". $disease);
+        header("location: updateVisitBed.php?error=invalidDisease=". $disease);
         exit();    
     }
 
 
     if ($errorHand->invalidUId($treatment)){
-        header("location: updateVisit.html?error=invalidTreatment=". $treatment);
+        header("location: updateVisitBed.php?error=invalidTreatment=". $treatment);
         exit();    
     }
 
@@ -113,7 +102,7 @@ if(isset($_POST['submit'])){
 
 
     if(empty($row)){
-        header("location: updateVisit.html?error=IdnotFound=". $visitId);
+        header("location: updateVisitBed.php.php?error=IdnotFound=". $visitId);
         exit();
    }else{
         if (empty($patientId)){
@@ -134,13 +123,25 @@ if(isset($_POST['submit'])){
 
 
 
-        if (empty($_POST['dateOfVisitDate'])){
+        if (empty($_POST['dateOfVisitYear'])){
+            $dateOfVisit = $row['dateOfVisit'];
+
+        }else if (empty($_POST['dateOfVisitMonth'])){
+            $dateOfVisit = $row['dateOfVisit'];
+
+        }else if (empty($_POST['dateOfVisitDay'])){
             $dateOfVisit = $row['dateOfVisit'];
 
         }
 
 
-        if (empty($_POST['dateOfDischargeDate'])){
+        if (empty($_POST['dateOfDischargeYear'])){
+            $dateOfDischarge = $row['dateOfDischarge'];
+
+        }else if (empty($_POST['dateOfDischargeMonth'])){
+            $dateOfDischarge = $row['dateOfDischarge'];
+
+        }else if (empty($_POST['dateOfDischargeDay'])){
             $dateOfDischarge = $row['dateOfDischarge'];
 
         }
@@ -158,34 +159,25 @@ if(isset($_POST['submit'])){
             $treatment = $row['treatment'];
         }
 
-
-        if($patientType == 1){
-
-        }else {
-            $dateOfDischarge = $dateOfVisit;
-            $query3 = $vis->callBed()->filterBed("NOBED");
-            $bed = $query3->fetch();
-    
-            $bedId = $bed['bedId'];
-            $vis->resetQuery();
-    
-            $completed = 1;
-            $hasBed = 2;
+        if (empty($completed)){
+            $completed = $row['completed'];
         }
-        $vis->resetQuery();
+
+        if (empty($hasBed)){
+            $hasBed = $row['hasBed'];
+        }
+
+        
     
-        $vis->updateVisit( $visitId ,$patientId, $patientType, $doctorId, $bedId, $dateOfVisit, $dateOfDischarge,  $symptoms, $disease, $treatment, $completed, $hasBed);
+        $vis->updateVisit($visitId, $patientId, $patientType, $doctorId, $bedId, $dateOfVisit, $dateOfDischarge,  $symptoms, $disease, $treatment, $completed, $hasBed);
 
 
     }
   
     
 
-if($_SESSION['isDoctor?'] == true){
+
     header("location: ../visitDoctor/dPatientList.php");
-    exit();  
-}
-header("location: visitList.php");
-exit();    
+    exit();    
 }   
 ?>

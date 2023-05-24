@@ -41,7 +41,7 @@
         public function invalidUId($variable){
             $result = null;
 
-            if(preg_match("/^[a-zA-Z0-9]*$/",$variable)){
+            if(preg_match("/^[ a-zA-Z0-9]*$/",$variable)){
                 $result = false;
             }else{
                 $result = true;

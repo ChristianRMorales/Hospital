@@ -9,14 +9,10 @@ if(isset($_POST['submit'])){
 
     $name = $_POST["patientName"];
     $addr = $_POST["patientAddr"];
-    $birthYear = $_POST["patientBirthYear"];
-    $birthMonth = $_POST["patientBirthMonth"];
-    $birthDay = $_POST["patientBirthDay"];
+    $birthDate = $_POST["patientBirthDate"];
     $phone = $_POST["patientPhone"];
     $eContact = $_POST["patientEmergencyContact"];
-    $pRegisteredYear = $_POST["patientRegisteredYear"];
-    $pRegisteredMonth = $_POST["patientRegisteredMonth"];
-    $pRegisteredDay = $_POST["patientRegisteredDay"];
+    $pRegisteredDate = $_POST["patientRegisteredDate"];
 
  
     $patientSqlN = $pat->filterpatient($name);
@@ -37,15 +33,8 @@ if(isset($_POST['submit'])){
         header("location: addpatient.html?error=EContactNotNumber=". $eContact);
         exit();
     }
-    if($errorHand->isInt(($birthYear . $birthMonth . $birthDay))){
-        header("location: addpatient.html?error=dateIsNotNumber=". ($birthYear . $birthMonth . $birthDay));
-        exit();
-    }
+   
 
-    if($errorHand->isInt(($$pRegisteredYear . $$pRegisteredMonth . $$pRegisteredDay))){
-        header("location: addpatient.html?error=dateIsNotNumber=". ($$pRegisteredYear . $$pRegisteredMonth . $$pRegisteredDay));
-        exit();
-    }
 
     if($errorHand->pwdMatch(strtoupper($name), strtoupper($patientName))){
         header("location: addpatient.html?error=nameAlreadyExist". $name);
@@ -65,7 +54,7 @@ if(isset($_POST['submit'])){
     $pat->resetQuery();
     
 
-    $pat->insertPatient($name,$addr,($birthYear ."-". $birthMonth ."-". $birthDay),$phone,$eContact,($pRegisteredYear ."-".  $pRegisteredMonth ."-". $pRegisteredDay));
+    $pat->insertPatient($name,$addr,$birthDate,$phone,$eContact,$pRegisteredDate);
     
 
 

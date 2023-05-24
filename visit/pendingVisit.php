@@ -20,10 +20,8 @@ $vis = new visitClass('mysql:host=localhost;dbname=hospital','root', '', true);
                 <ul>
                 <li><a href="../Index.php">HOME</a></li>
 
-                    <li class="active">SEARCH VISIT</a></li>
-                    <li><a href="deleteVisit.html">DELETE VISIT</a></li>
-                    <li><a href="addVisit.html">ADD VISIT</a></li>
-                    <li><a href="updateVisit.html">UPDATE VISIT</a></li>
+                    <li class="active">Pending Visit Beds</a></li>
+
                 </ul>
             </div>
             

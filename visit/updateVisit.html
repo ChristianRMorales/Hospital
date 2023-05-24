@@ -52,32 +52,11 @@
           <input type="text" id="bedId" name="bedId">
     
           <label for="dateOfVisit">Date OF Visit:</label>
-          <div class = "date">
-            <div>
-          <input type="text" id="dateToday" name="dateOfVisitYear" placeholder = "year">
-            </div>
-            <div>
-          <input type="text" id="dateToday" name="dateOfVisitMonth" placeholder = "month">
-            </div> 
-            <div>
-          <input type="text" id="dateToday" name="dateOfVisitDay" placeholder = "day">
-            </div>
-
-          </div>
+          <input type="date" id="dateToday" name="dateOfVisitDate" required>
+       
          
           <label for="dateOfDischarge">Date of Discharge:</label>
-          <div class = "date">
-            <div>
-          <input type="text" id="dateOfDischarge" name="dateOfDischargeYear" placeholder = "year">
-            </div>
-            <div>
-          <input type="text" id="dateOfDischarge" name="dateOfDischargeMonth" placeholder = "month">
-            </div> 
-            <div>
-          <input type="text" id="dateOfDischarge" name="dateOfDischargeDay" placeholder = "day">
-            </div>
-
-          </div>
+          <input type="date" id="dateOfDischarge" name="dateOfDischargeDate" required>
 
           <label for="symptoms">Symptoms:</label>
           <input type="text" id="symptoms" name="symptoms">
@@ -87,7 +66,17 @@
 
           <label for="treatment">Treatment:</label>
           <input type="text" id="treatment" name="treatment">
-    
+
+          <label for="completed">completed:</label>
+          <select name="completed"required>
+            <option value=1>Yes</option>
+            <option value=0>No</option>
+            </select>
+          <label for="hasBed">hasBed:</label>
+          <select name="hasBed"required>
+            <option value=1>Yes</option>
+            <option value=0>No</option>
+          </select>
           <input type="hidden" name="input" value="2">
       </form>
       <button class="btnn" form="updateVisit" name="submit" value="submit">UPDATE VISIT</button>

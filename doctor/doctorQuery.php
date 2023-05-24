@@ -2,12 +2,12 @@
 require_once '../ORM.php';
 
 class doctorClass extends MyOrm{
-public function insertDoctor(string $doctorName, string $doctorAddress,string $doctorPhone){
+public function insertDoctor(string $doctorName, string $doctorAddress,string $doctorPhone, string $doctorPassword){
         
 
     $sql = $this->insert()
                 ->into('doctor')
-                ->values("(0 ,'".$doctorName."','".$doctorAddress."','".$doctorPhone."')")
+                ->values("(0 ,'".$doctorName."','".$doctorAddress."','".$doctorPhone."','".$doctorPassword."')")
                 ->sc()
                 ->showQuery();
 
@@ -17,13 +17,13 @@ public function insertDoctor(string $doctorName, string $doctorAddress,string $d
 
 // update a doctor's information
 
-public function updateDoctor(string $doctorId, string $doctorName, string $doctorAddress, string $doctorPhone){
+public function updateDoctor(string $doctorId, string $doctorName, string $doctorAddress, string $doctorPhone, string $doctorPassword){
    
 
         try{
    
              $sql = $this->update('doctor')
-                         ->set("doctorName = '". $doctorName ."', doctorAddress = '". $doctorAddress ."', doctorPhone = '". $doctorPhone ."'")
+                         ->set("doctorName = '". $doctorName ."', doctorAddress = '". $doctorAddress ."', doctorPhone = '". $doctorPhone ."', doctorPassword = '". $doctorPassword ."'")
                          ->where('doctorId')
                          ->isEqualTo($doctorId)
                          ->sc()
@@ -90,6 +90,52 @@ public function filterDoctor(string $filterValues){
 
     return $stmt;
 }
+
+
+
+
+public function getUser($variableUser, $variablePass){
+
+
+    $names = $this->select()
+                  ->from('doctor')
+                  ->where('doctorName')
+                  ->isEqualTo('"'.$variableUser.'"')
+                  ->sc()
+                  ->showQuery();
+
+    $stmt = $this->connect()->query($names);
+    $count = $stmt->rowCount();
+
+         if($count == 0){ //check if user exist
+              header("location: ../login.php?error=NoDoctorName" . $count);
+              exit();
+         }
+
+    $user = $stmt->fetchAll();
+    $password = $user[0]['doctorPassword'];
+
+
+  
+
+        if($password != $variablePass){
+            header("location: ../login.php?eror=WrongPassword" . $variablePass . $password .  " 1 ");
+            exit();
+        }elseif($password == $variablePass){
+
+            session_start();
+            $_SESSION["userId"] = $user[0]["doctorId"];
+            $_SESSION["userN"] = $user[0]["doctorName"];
+            $_SESSION["isDoctor?"] = true;
+            header("location: ../index.php?eror=none");
+            exit();
+        }
+    
+
+    $stmt = null;
+
+    return false;
+    }
 
 
 

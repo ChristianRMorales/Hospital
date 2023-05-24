@@ -12,8 +12,8 @@ if(isset($_POST['submit'])){
     $patientType = $_POST['patientType'];
     $doctorId = $_POST['doctorId'];
     $bedId = $_POST['bedId'];
-    $dateOfVisit = ($_POST['dateOfVisitYear'] . "-" . $_POST['dateOfVisitMonth'] . "-" .$_POST['dateOfVisitDay']);
-    $dateOfDischarge = ($_POST['dateOfDischargeYear'] . "-" . $_POST['dateOfDischargeMonth'] . "-" .$_POST['dateOfDischargeDay']);
+    $dateOfVisit = ($_POST['dateOfVisitDate']);
+    $dateOfDischarge = ($_POST['dateOfDischargeDate']);
     $symptoms = $_POST['symptoms'];
     $disease = $_POST['disease'];  
     $treatment = $_POST['treatment'];
@@ -52,7 +52,9 @@ if(isset($_POST['submit'])){
         exit();
     }
 
-
+    if(empty($dateOfDischarge )){
+        $dateOfDischarge = 0;
+    }
     $vis->resetQuery();
 
 
@@ -82,18 +84,6 @@ if(isset($_POST['submit'])){
 
 
 
-    if ($errorHand->isInt($_POST['dateOfVisitYear'] . $_POST['dateOfVisitMonth'] .$_POST['dateOfVisitDay'])){
-        header("location: vdAddVisit.php?error=invalidDateOfVisit=".  $dateOfVisit);
-        exit();    
-    }
-
-
-
-
-    if ($errorHand->isInt($_POST['dateOfDischargeYear'] . $_POST['dateOfDischargeMonth'] .$_POST['dateOfDischargeDay'])){
-        header("location: vdAddVisit.php?error=invalidDateOfDischarge=". $dateOfDischarge);
-        exit();    
-    }
 
 
 
@@ -140,7 +130,7 @@ if(isset($_POST['submit'])){
 
 
 
-    header("location: vdAddVisit.php?success=insert");
+    header("location: dPatientList.php?success=insert");
     exit(); 
 
 }

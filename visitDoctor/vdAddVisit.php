@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 if(isset($_POST['submit'])){
 
 
@@ -36,7 +36,7 @@ if(isset($_POST['submit'])){
             <br> Choose Date to Visit</p>
 
       <div class=" formVisitAdd ">
-      <form action="addVD.php" method="post"  id="addVisit">
+      <form action="addV.php" method="post"  id="addVisit">
 
 
           <label for="symptoms">Symptoms:</label>
@@ -57,23 +57,15 @@ if(isset($_POST['submit'])){
           <option value=0>OUT</option>
           <br>
 
-          <input type="hidden" id="doctorId" name="doctorId" value = 1 required>
+          <input type="hidden" id="doctorId" name="doctorId" value =<?= $_SESSION['userId'] ?> required>
 
           <input type="hidden" id="bedId" name="bedId" value = 1 required>
     
           
           <label for="dateOfVisit"><br><br>Date OF Visit:</label>
-          <div class = "date">
-            <div>
-          <input type="text" id="dateToday" name="dateOfVisitYear" placeholder = "year"required>
-            </div>
-            <div>
-          <input type="text" id="dateToday" name="dateOfVisitMonth" placeholder = "month"required>
-            </div> 
-            <div>
-          <input type="text" id="dateToday" name="dateOfVisitDay" placeholder = "day"required>
-          </div>
-          </div>
+          
+          <label for="dateOfVisit">Date OF Visit:</label>
+          <input type="date" id="dateToday" name="dateOfVisitDate" required>
 
 
 

@@ -12,11 +12,15 @@ if(isset($_POST['submit'])){
     $name = $_POST["doctorName"];
     $addr = $_POST["doctorAddress"];
     $phone = $_POST["doctorPhone"];
-
+    $password = $_POST["doctorPass"];
     
 
     if ($errorHand->invalidId($doctorId)){
         header("location: updateDoctor.html?error=invalidId=". $doctorId);
+        exit();    
+    }
+    if ($errorHand->invalidUId($password)){
+        header("location: updateDoctor.html?error=invalidpassword=". $password);
         exit();    
     }
 
@@ -58,7 +62,7 @@ if(isset($_POST['submit'])){
         $phone = $row['doctorPhone'];
     }
     $doc->resetQuery();
-    $doc->updateDoctor($doctorId, $name, $addr, $phone);
+    $doc->updateDoctor($doctorId, $name, $addr, $phone, $password);
 
 }
 

@@ -39,7 +39,7 @@ session_start();
         <div class="content">
             <?php 
             if (isset($_SESSION['userId'])){
-                echo "<h1> WELCOME USER ". $_SESSION['userN'] . "</h1><br>";
+                echo "<h1> WELCOME ". $_SESSION['userN'] . "</h1><br>";
             }else{
                 echo "<h1>You are not logged in<h1>";
             }
@@ -48,15 +48,16 @@ session_start();
             <p class="par">You health services <br> One life is enough, Live life to the fullest in Palooza
                 <br>Carita en scientia</p>
                 <?php 
-                    if (isset($_SESSION['userId'])){?>
+                    if (isset($_SESSION['userId']) & $_SESSION['isDoctor?'] == false){?>
                     <button class="btnn" onclick="window.location.href = 'patient/patientList.php';">Patient list</button>
                     <button class="btnn" onclick="window.location.href = 'visit/visitList.php';">Visit list</button>
                     <button class="btnn" onclick="window.location.href = 'doctor/doctorlist.php';">Doctor</button>
                     <button class="btnn" onclick="window.location.href = 'bed/bedlist.php';">Bed list</button>
+                    <button class="btnn" onclick="window.location.href = 'visit/pendingVisit.php';">Pending Bed list</button>
 
-                    <?php }else{
-                        echo "<h1>Please click on the log in button<h1> ";
-                    }?>
+                    <?php }elseif (isset($_SESSION['userId']) & $_SESSION['isDoctor?'] == true){?>
+                    <button class="btnn" onclick="window.location.href = 'visitDoctor/dPatientList.php';">Patient list</button>
+                    <?php } ?>
     
                 </div>
                     </div>

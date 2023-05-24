@@ -46,7 +46,11 @@
 
                     <input type="username" name="logUser" placeholder="Enter Username Here" required>
                     <input type="password" name="logPass" placeholder="Enter Password Here" required>
-                    <input type="hidden" name="input" value = "1" required>
+
+                    <select name="loginValue"required>
+                                <option value=1>Doctor</option>
+                                <option value=0>Admin</option>
+                    </select>
                     </form>
                     <button class="btnn" form="login" name="submit" value="submit">Login</button>
 
