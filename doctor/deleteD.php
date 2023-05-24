@@ -1,5 +1,5 @@
 <?php
-require_once '../clases/doctorQuery.php';
+require_once '../classes/doctorQuery.php';
 require_once '../includes/errorHandlers.php';
 
 $errorHand = new err();

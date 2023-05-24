@@ -36,7 +36,7 @@ if(isset($_POST['submit'])){
             <br> Choose Date to Visit</p>
 
       <div class=" formVisitAdd ">
-      <form action="addV.php" method="post"  id="addVisit">
+      <form action="addVD.php" method="post"  id="addVisit">
 
 
           <label for="symptoms">Symptoms:</label>

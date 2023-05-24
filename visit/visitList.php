@@ -109,7 +109,7 @@ $vis = new visitClass('mysql:host=localhost;dbname=hospital','root', '', true);
                                                     <td><?=  $items['dateOfVisit']?></td>
                                                     <td><?=  $items['dateOfDischarge']?></td>
                                                     <td><?php  if($items['completed'] == 0){echo "PEDNING";}else{echo "COMPLETED";}?></td>
-                                                    <td><?php  if($items['hasBed'] == 0){echo "Bed not Assigned";}elseif($items['hasBed'] == 1){echo "Bed Assigned";}else{echo"OUT Patient";}?></td>
+                                                    <td><?php  if($items['hasBed'] == 0){echo "Bed not Assigned";}elseif($items['hasBed'] == 1){echo "Bed Assigned";}else{echo"Discharged";}?></td>
                             
                                                 </tr>
 

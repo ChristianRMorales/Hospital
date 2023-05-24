@@ -135,17 +135,6 @@ if(isset($_POST['submit'])){
         }
 
 
-        if (empty($_POST['dateOfDischargeYear'])){
-            $dateOfDischarge = $row['dateOfDischarge'];
-
-        }else if (empty($_POST['dateOfDischargeMonth'])){
-            $dateOfDischarge = $row['dateOfDischarge'];
-
-        }else if (empty($_POST['dateOfDischargeDay'])){
-            $dateOfDischarge = $row['dateOfDischarge'];
-
-        }
-
         
         if (empty($symptoms)){
             $symptoms = $row['symptoms'];
@@ -167,7 +156,7 @@ if(isset($_POST['submit'])){
             $hasBed = $row['hasBed'];
         }
 
-        
+        $hasBed = 2;
     
         $vis->updateVisit($visitId, $patientId, $patientType, $doctorId, $bedId, $dateOfVisit, $dateOfDischarge,  $symptoms, $disease, $treatment, $completed, $hasBed);
 

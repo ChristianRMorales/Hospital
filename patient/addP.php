@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../classes/patientQuery.php';
 require_once '../includes/errorHandlers.php';
 
@@ -57,7 +58,11 @@ if(isset($_POST['submit'])){
     $pat->insertPatient($name,$addr,$birthDate,$phone,$eContact,$pRegisteredDate);
     
 
-
+    if($_SESSION['isDoctor?'] == true)
+    {
+        header("location: ../visitDoctor/dPatientlist.php?success=insert");
+        exit();  
+    }
     header("location: patientlist.php?success=insert");
     exit(); 
 }

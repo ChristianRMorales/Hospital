@@ -6,7 +6,7 @@ $visitId = $_POST['visitId'];
 <html>
   <head>
 
-    <title>Register | Patient Palooza</title>
+    <title>Discharge | Patient Palooza</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css?v=2" />
     <link rel="icon" href="1.ico" type="image/x-icon">
   </head>
@@ -20,7 +20,7 @@ $visitId = $_POST['visitId'];
             <div class="menu">
                 <ul>
                   <li><a href="../Index.php">HOME</a></li>
-                  <li class="active">DELETE VISIT</li>
+                  <li class="active">Discharge Patient</li>
 
 
                 </ul>
