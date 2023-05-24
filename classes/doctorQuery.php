@@ -1,5 +1,5 @@
 <?php
-require_once '../ORM.php';
+require_once '../includes/ORM.php';
 
 class doctorClass extends MyOrm{
 public function insertDoctor(string $doctorName, string $doctorAddress,string $doctorPhone, string $doctorPassword){

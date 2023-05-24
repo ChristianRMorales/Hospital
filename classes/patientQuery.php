@@ -1,6 +1,6 @@
 <?php
 
-require_once '../ORM.php';
+require_once '../includes/ORM.php';
 
 class patientClass extends MyOrm{
 

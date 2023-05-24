@@ -1,5 +1,5 @@
 <?php
-require_once '../ORM.php';
+require_once '../includes/ORM.php';
 
 
 class signUpQ extends MyOrm{
