@@ -13,15 +13,6 @@ create table user (
 select * from user;
 SELECT * FROM user WHERE userName = "paulIrvin";
 
-create table dUser (
-	userId INT AUTO_INCREMENT,
-	userName varChar(50),
-    pass varChar(50),
-    email varChar(255),
-	doctorId int(5),
-	PRIMARY KEY (userId),
-	FOREIGN KEY (doctorId) REFERENCES doctor(doctorId) ON UPDATE CASCADE ON DELETE CASCADE
-);
 
 create table patient (
 	patientId INT AUTO_INCREMENT,
@@ -40,6 +31,7 @@ create table doctor (
     doctorName varchar(50),
     doctorAddress varChar(255),
     doctorPhone varchar(20),
+    doctorPassword varchar(50),
 	PRIMARY KEY (doctorId)
 );
 
@@ -93,16 +85,23 @@ delete from patient where patientId > 6;
 SELECT * FROM patient WHERE CONCAT(patientId,patientName,patientDateRegistered) LIKE 1;
 
  
-INSERT INTO doctor (doctorId, doctorName, doctorAddress, doctorPhone) VALUES 
-(NULL, 'Dr. Gems Lyle G. Hubac', 'Lacion Loan', '70043'),
-(NULL, 'Dr. Mark Y. Ligo', 'Mingla Parkmall', '70040'),
-(NULL, 'Dr. Gab D. Barinan', 'Mandaue City', '70028'),
-(NULL, 'Dr. Paul Wei I. Yu', 'Lapu-Lapu City', '70032'),
-(NULL, 'Dr. Jeeriel B. Orat', 'Cebu City', '70065');
+INSERT INTO doctor (doctorId, doctorName, doctorAddress, doctorPhone, doctorPassword) VALUES 
+(NULL, 'Gems Lyle Hubac', 'Lacion Loan', '70043', 'pass'),
+(NULL, 'Mark Ligo', 'Mingla Parkmall', '70040', 'pass'),
+(NULL, 'Gab Barinan', 'Mandaue City', '70028', 'pass'),
+(NULL, 'Paul Wei Yu', 'Lapu-Lapu City', '70032', 'pass'),
+(NULL, 'Jeeriel Orat', 'Cebu City', '70065', 'pass');
+select * from doctor;
+delete from doctor where doctorId > 0;
 
 iNSERT INTO bed (bedId, bedName, ratePerDay, bedType) VALUES
 (NULL, 'NOBED', '0', 'OUTPATIENT'),
 (NULL, 'Single Bed', '500', 'Public-Ward'),
 (NULL, 'Double Bed', '800', 'Private'),
 (NULL, 'Super Single Bed', '1000', 'Premium');
+select * from bed;
+insert into visit values(null, 1,1, 1, 2, "2000-10-31",  "2023-5-9", "asdasd", "asdasdasd", "ASDASDASD",0,0 );
+insert into visit values(null, 2,1, 1, 2, "2000-10-31",  "2023-5-9", "asdasd", "asdasdasd", "ASDASDASD",0,0 );
+
+
 
