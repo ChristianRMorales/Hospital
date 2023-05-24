@@ -136,11 +136,11 @@ class visitClass extends MyOrm{
     return $query_run;
     }
  
-    public function insertVisit(string $patientId, string $patientType, string $doctorId, string $bedId, string $dateOfVisitt, string $dateOfDischarge,  string $symptoms, string $disease, string $treatment ){
+    public function insertVisit(string $patientId, string $patientType, string $doctorId, string $bedId, string $dateOfVisitt, string $dateOfDischarge,  string $symptoms, string $disease, string $treatment, string $completed, string $hasBed ){
         
         $sql = $this->insert()
                     ->into('visit')
-                    ->values("(0 ,'".$patientId."','".$patientType."','".$doctorId."','". $bedId ."','". $dateOfVisitt ."','"  . $dateOfDischarge . "','"  .$symptoms."','"  .$disease."','"  .$treatment. "')")
+                    ->values("(0 ,'".$patientId."','".$patientType."','".$doctorId."','". $bedId ."','". $dateOfVisitt ."','"  . $dateOfDischarge . "','"  .$symptoms."','"  .$disease."','"  .$treatment. "','"  .$completed. "','"  .$hasBed. "')")
                     ->sc()
                     ->showQuery();
         $stmt = $this->connect()->query($sql);
@@ -161,10 +161,10 @@ class visitClass extends MyOrm{
     }
     
     
-    public function updateVisit(string $visitId, string $patientId, string $patientType, string $doctorId, string $bedId, string $dateOfVisit, string $dateOfDischarge,  string $symptoms, string $disease, string $treatment ){
+    public function updateVisit(string $visitId, string $patientId, string $patientType, string $doctorId, string $bedId, string $dateOfVisit, string $dateOfDischarge,  string $symptoms, string $disease, string $treatment, string $completed, string $hasBed  ){
 
          $sql = $this->update('visit')
-                    ->set("patientId = '". $patientId ."', patientType = '". $patientType ."', doctorId = '". $doctorId ."', bedId = '". $bedId ."', dateOfVisit = '". $dateOfVisit ."', dateOfDischarge = '". $dateOfDischarge ."', symptoms = '". $symptoms ."', disease = '". $disease ."', treatment = '". $treatment ."'")
+                    ->set("patientId = '". $patientId ."', patientType = '". $patientType ."', doctorId = '". $doctorId ."', bedId = '". $bedId ."', dateOfVisit = '". $dateOfVisit ."', dateOfDischarge = '". $dateOfDischarge ."', symptoms = '". $symptoms ."', disease = '". $disease ."', treatment = '". $treatment ."', completed = '". $completed ."', hasBed = '". $hasBed ."'")
                     ->where('visitId')
                     ->isEqualTo($visitId)
                     ->sc()
@@ -175,7 +175,31 @@ class visitClass extends MyOrm{
         }
     
 
+        public function findVisitPatient(string $filterValues){
+            $sql = $this->select()
+            ->from('visit')
+            ->where('patientId')
+            ->isEqualTo($filterValues)
+            ->sc()
+            ->showQuery();
 
+            $query_run = $this->connect()->query($sql);
+    
+        return $query_run;
+        }
+
+        public function findVisitHasBed(string $filterValues){
+            $sql = $this->select()
+            ->from('visit')
+            ->where('hasBed')
+            ->isEqualTo($filterValues)
+            ->sc()
+            ->showQuery();
+
+            $query_run = $this->connect()->query($sql);
+    
+        return $query_run;
+        }
 
 
 

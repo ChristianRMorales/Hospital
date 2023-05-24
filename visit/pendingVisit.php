@@ -37,15 +37,7 @@ $vis = new visitClass('mysql:host=localhost;dbname=hospital','root', '', true);
                 <h1><span>Visits List</span></h1><br>
                 </div>
 
-                <div class="search">
-                <form action="" method="POST">
-            
-         
-                <input class="srch" type="text" name="search" placeholder="Type To text">
-                <button class="btn" type="submit">Search</button>
-      
-                </form>
-                </div>
+                
          
             
         
@@ -62,18 +54,14 @@ $vis = new visitClass('mysql:host=localhost;dbname=hospital','root', '', true);
                             <th>Patient Name</th>
                             <th>patient Type</th>
                             <th>dateOfVisit</th>
-                            <th>dateOfDischarge</th>
                             <th>visit Status</th>
                             <th>Bed Status</th>
+                            <th>Change Bed</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                         
-                            if(isset($_POST['search']))
-                                {
-                                    $filterValues = $_POST['search'];
-                                    $query = $vis->filterVisit($filterValues);
+                                    $query = $vis->findVisitHasBed(0);
                                     $count = $query->rowCount();
                                     if($count > 0)
                                         {   
@@ -106,9 +94,9 @@ $vis = new visitClass('mysql:host=localhost;dbname=hospital','root', '', true);
                                                     <td><?=  $patientName['patientName']?></td>
                                                     <td><?php  if($items['patientType'] == 1){echo "IN";}else{echo "OUT";}?></td>
                                                     <td><?=  $items['dateOfVisit']?></td>
-                                                    <td><?=  $items['dateOfDischarge']?></td>
                                                     <td><?php  if($items['completed'] == 0){echo "PEDNING";}else{echo "COMPLETED";}?></td>
-                                                    <td><?php  if($items['hasBed'] == 0){echo "Bed not Assigned";}elseif($items['hasBed'] == 1){echo "Bed Assigned";}else{echo"OUT Patient";}?></td>
+                                                    <td><?php  if($items['hasBed'] == 0){echo "No Bed";}else{echo "With Bed";}?></td>
+                                                    <td><form action="updateVisitBed.php" method="POST" enctype="multipart/form-data"><input type="hidden" name="visitId" value=<?= $items['visitId']; ?>><button class="btnn" name="submit">Add Bed</button></form></td>
                             
                                                 </tr>
 
@@ -119,13 +107,13 @@ $vis = new visitClass('mysql:host=localhost;dbname=hospital','root', '', true);
                                         {
                                             ?>
                                             <tr>
-                                                    <td colspan="5">No Record Found</td>
+                                                    <td colspan="9">No Record Found</td>
                             
                                                 </tr>
                                             <?php
 
                                         }
-                                }
+                                
                         ?>
                         
                     </tbody>

@@ -13,8 +13,26 @@
     position: relative;
 }
 
+.bedVisit{
+    flex: auto;
+    flex-direction: column;
+}
 
+.btn-link {
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: #8797B2;
+    font-family: Arial;
+    font-weight: bold;
+    transition: 0.4s ease-in-out;
+    padding: 0;
 
+    font-family: inherit;
+    font-size: inherit;
+}
 
 
 
@@ -547,6 +565,73 @@ ul li a:hover{
 .formDoctorAdd input:focus{
     outline: none;
 }
+
+
+::placeholder{
+    color: #fff;
+    font-family: Arial;
+}
+
+
+.formVisitBed{
+    width: 250px;
+    height: 400px;
+    background:  #16263C;
+    position: relative;
+    top: -260px;
+    left: 1070px;
+    transform: translate(0%,-5%);
+    border-radius: 10px;
+    padding: 25px;
+}
+
+
+.formVisitBed h2{
+    width: 220px;
+    font-family: sans-serif;
+    text-align: center;
+    color: #ff7200;
+    font-size: 22px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 2px;
+    padding: 8px;
+}
+
+.formVisitBed input{
+    width: 240px;
+    height: 35px;
+    background: transparent;
+    border-bottom: 1px solid #ff7200;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    color: #fff;
+    font-size: 15px;
+    letter-spacing: 1px;
+    margin-top: 30px;
+    font-family: sans-serif;
+}
+
+.date input{
+    width: 75px;
+    height: 35px;
+    background: transparent;
+    border-bottom: 1px solid #ff7200;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    color: #fff;
+    font-size: 15px;
+    letter-spacing: 1px;
+    margin-top: 30px;
+    font-family: sans-serif;
+}
+
+.formVisitBed input:focus{
+    outline: none;
+}
+
 
 ::placeholder{
     color: #fff;

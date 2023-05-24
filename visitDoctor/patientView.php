@@ -1,7 +1,13 @@
 <?php
-require_once 'visitQuery.php';
+
+require_once '../visit/visitQuery.php';
 
 $vis = new visitClass('mysql:host=localhost;dbname=hospital','root', '', true);
+
+$sql = $vis->callPat()->findPatient($_POST['patientId']);
+$patient = $sql->fetch();
+$vis->resetQuery();
+$pending = null;
 ?>
 <html lang="en">
 <head>
@@ -20,10 +26,9 @@ $vis = new visitClass('mysql:host=localhost;dbname=hospital','root', '', true);
                 <ul>
                 <li><a href="../Index.php">HOME</a></li>
 
-                    <li class="active">SEARCH VISIT</a></li>
-                    <li><a href="deleteVisit.html">DELETE VISIT</a></li>
-                    <li><a href="addVisit.html">ADD VISIT</a></li>
-                    <li><a href="updateVisit.html">UPDATE VISIT</a></li>
+                    <li class="active">Patient Visit</a></li>
+                    <li><a href="dPatientList.php">RETURN</a></li>
+                   
                 </ul>
             </div>
             
@@ -38,12 +43,11 @@ $vis = new visitClass('mysql:host=localhost;dbname=hospital','root', '', true);
                 </div>
 
                 <div class="search">
+                
                 <form action="" method="POST">
             
-         
-                <input class="srch" type="text" name="search" placeholder="Type To text">
-                <button class="btn" type="submit">Search</button>
-      
+                                         
+                <h1><?php echo "Patient Name:". $patient['patientName']?>
                 </form>
                 </div>
          
@@ -63,35 +67,31 @@ $vis = new visitClass('mysql:host=localhost;dbname=hospital','root', '', true);
                             <th>patient Type</th>
                             <th>dateOfVisit</th>
                             <th>dateOfDischarge</th>
-                            <th>visit Status</th>
-                            <th>Bed Status</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                          
-                            if(isset($_POST['search']))
-                                {
-                                    $filterValues = $_POST['search'];
-                                    $query = $vis->filterVisit($filterValues);
+
+                                    $query = $vis->findVisitPatient($patient['patientId']);
+                                    
                                     $count = $query->rowCount();
                                     if($count > 0)
                                         {   
                                            
         
                                             foreach($query as $items){
-                                                $patient = (string)$items['patientId'];
+                                                $patientN = $_POST["patientId"];
                                                 $doctor = (string)$items['doctorId'];
                                                 $bedId = (string)$items['bedId'];
                                                 
-                                                $vis->resetQuery();
-
-                                                $query1 = $vis->callPat()->findPatient($patient);
+                                                $query1 = $vis->callPat()->findPatient($patientN);
                                                 $patientName = $query1->fetch();
                                                 $vis->resetQuery();
 
                                                 $query2 = $vis->callDoc()->findDoctor($doctor);
-                                                $doctorName = $query2->fetch();;
+                                                $doctorName = $query2->fetch();
                                                 $vis->resetQuery();
 
                                                 $query3 = $vis->callBed()->findBed($bedId);
@@ -104,11 +104,23 @@ $vis = new visitClass('mysql:host=localhost;dbname=hospital','root', '', true);
                                                     <td><?= $bedName['bedType'] ?></td>
                                                     <td><?=  $doctorName['doctorName'] ?></td>
                                                     <td><?=  $patientName['patientName']?></td>
-                                                    <td><?php  if($items['patientType'] == 1){echo "IN";}else{echo "OUT";}?></td>
+                                                    <td><?php  if($items['patientType'] == 1){
+                                                        echo "IN";
+                                                    }else{
+                                                        echo "OUT";
+                                                    }?></td>
                                                     <td><?=  $items['dateOfVisit']?></td>
-                                                    <td><?=  $items['dateOfDischarge']?></td>
-                                                    <td><?php  if($items['completed'] == 0){echo "PEDNING";}else{echo "COMPLETED";}?></td>
-                                                    <td><?php  if($items['hasBed'] == 0){echo "Bed not Assigned";}elseif($items['hasBed'] == 1){echo "Bed Assigned";}else{echo"OUT Patient";}?></td>
+                                                    <td><?php if($items['completed'] == 1){
+                                                        echo  $items['dateOfDischarge'];
+                                                    }else{
+                                                        echo " TBD ";
+                                                    }?></td>
+                                                    <td><?php if($items['completed'] == 1){
+                                                        echo " COMPLETED ";
+                                                    }else{
+                                                        echo " PENDING ";
+                                                        $pending = 1;
+                                                    }?></td>
                             
                                                 </tr>
 
@@ -119,19 +131,32 @@ $vis = new visitClass('mysql:host=localhost;dbname=hospital','root', '', true);
                                         {
                                             ?>
                                             <tr>
-                                                    <td colspan="5">No Record Found</td>
+                                                    <td colspan="6">No Record Found</td>
                             
                                                 </tr>
                                             <?php
 
                                         }
-                                }
+                                
+                         
                         ?>
                         
                     </tbody>
 
                 </table>
+                <?php
+                if($pending == null)  {    
+                   ?>
+                    <form action="vdAddVisit.php" method="post"  id="addVisit" >
+                    <input type="hidden" name="patientId" value="<?= $patient['patientId'] ?>">  
+                    </form>
+                    <button class="btnn" form="addVisit" name="submit" value="submit">Add Visit</button>
 
+                    <?php  
+                }else{}
+
+   
+                    ?>
             </div>
         </div>   
         </center>  

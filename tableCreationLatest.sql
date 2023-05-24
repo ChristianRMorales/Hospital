@@ -13,6 +13,16 @@ create table user (
 select * from user;
 SELECT * FROM user WHERE userName = "paulIrvin";
 
+create table dUser (
+	userId INT AUTO_INCREMENT,
+	userName varChar(50),
+    pass varChar(50),
+    email varChar(255),
+	doctorId int(5),
+	PRIMARY KEY (userId),
+	FOREIGN KEY (doctorId) REFERENCES doctor(doctorId) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
 create table patient (
 	patientId INT AUTO_INCREMENT,
     patientName varChar(50), 	
@@ -52,7 +62,7 @@ delete from bed where bedId = 1;
 create table visit (
 	visitId INT AUTO_INCREMENT,
     patientId int(5),
-    patientType varChar(3),
+    patientType int(5),
     doctorId int(5),
     bedId int(5),
     dateOfVisit date,
@@ -60,6 +70,8 @@ create table visit (
     symptoms varchar(1000),
     disease varchar(1000),
     treatment varchar(1000),
+    completed int(5),
+    hasBed int(5),
     PRIMARY KEY (visitId),
 	FOREIGN KEY (patientId) REFERENCES patient( patientId ) ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY (doctorId) REFERENCES doctor(doctorId) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -93,8 +105,4 @@ iNSERT INTO bed (bedId, bedName, ratePerDay, bedType) VALUES
 (NULL, 'Single Bed', '500', 'Public-Ward'),
 (NULL, 'Double Bed', '800', 'Private'),
 (NULL, 'Super Single Bed', '1000', 'Premium');
-
-
-
-
 
