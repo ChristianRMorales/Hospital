@@ -1,7 +1,11 @@
 <?php
 
 session_start();
-
+if($_SESSION['isDoctor?'] == true){
+    $name = "DR.";
+}else{
+    $name = "Administrator ";
+}
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +43,7 @@ session_start();
         <div class="content">
             <?php 
             if (isset($_SESSION['userId'])){
-                echo "<h1> WELCOME ". $_SESSION['userN'] . "</h1><br>";
+                echo "<h1> WELCOME ".$name . $_SESSION['userN'] . "</h1><br>";
             }else{
                 echo "<h1>You are not logged in<h1>";
             }
